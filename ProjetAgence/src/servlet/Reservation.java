@@ -1,5 +1,7 @@
 package servlet;
 
-public class Reservation {
+import javax.servlet.http.HttpServlet;
 
+public class Reservation extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 }
