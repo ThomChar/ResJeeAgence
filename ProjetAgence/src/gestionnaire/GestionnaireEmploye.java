@@ -1,14 +1,11 @@
-package model;
+package gestionnaire;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class Employe {
+public class GestionnaireEmploye {
 
-	@Id
-    @GeneratedValue
 	private int matricule;
 	private String nom;
 	private String prenom;
@@ -16,22 +13,10 @@ public class Employe {
 	private int codePostal;
 	private String ville;
 	private int age;
-	private String contrat;
-	/*public enum Contrat {
+	public enum contrat {
 		  TEMPPLEIN,
 		  PARTIEL;
-		}*/
-	
-	public Employe (String nom, String prenom, String adresse, int codePostal, String ville, int age, String contrat) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresse = adresse;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.age = age;
-		this.contrat = contrat;
-	}
+		}
 	
 	public int getMatricule() {
 		return matricule;
@@ -74,20 +59,6 @@ public class Employe {
 	}
 	public void setAge(int age) {
 		this.age = age;
-	}
-
-	public String getContrat() {
-		return contrat;
-	}
-
-	public void setContrat(String contrat) {
-		this.contrat = contrat;
-	}
-
-	@Override
-	public String toString() {
-		return "Employe [matricule=" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse
-				+ ", codePostal=" + codePostal + ", ville=" + ville + ", age=" + age + ", contrat=" + contrat + "]";
 	}
 	
 }

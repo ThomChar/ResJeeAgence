@@ -1,10 +1,32 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Occupation {
 
+	@Id
+    @GeneratedValue
 	private int idOccupation;
-	private int idLieu;
-	private int idAcivite;
+	//private int idLieu;
+	//private int idAcivite;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Lieu lieu;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Activite activite;
+	
+	
+	public Occupation(Lieu lieu, Activite activite) {
+		super();
+		this.lieu = lieu;
+		this.activite = activite;
+	}
 	
 	public int getIdOccupation() {
 		return idOccupation;
@@ -12,16 +34,24 @@ public class Occupation {
 	public void setIdOccupation(int idOccupation) {
 		this.idOccupation = idOccupation;
 	}
-	public int getIdLieu() {
-		return idLieu;
+	public Lieu getLieu() {
+		return lieu;
 	}
-	public void setIdLieu(int idLieu) {
-		this.idLieu = idLieu;
+
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
 	}
-	public int getIdAcivite() {
-		return idAcivite;
+
+	public Activite getActivite() {
+		return activite;
 	}
-	public void setIdAcivite(int idAcivite) {
-		this.idAcivite = idAcivite;
+
+	public void setActivite(Activite activite) {
+		this.activite = activite;
+	}
+
+	@Override
+	public String toString() {
+		return "Occupation [idOccupation=" + idOccupation + ", lieu=" + lieu + ", activite=" + activite + "]";
 	}
 }
