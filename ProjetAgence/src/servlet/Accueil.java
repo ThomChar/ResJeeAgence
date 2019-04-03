@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 //@WebServlet("/Accueil")
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
+	 /**
      * @see HttpServlet#HttpServlet()
      */
     public Accueil() {
         super();
         // TODO Auto-generated constructor stub
     }
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,6 +34,10 @@ public class Accueil extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 		dispatcher.forward(request, response);
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("test");
+		/*RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		dispatcher.forward(request, response);*/
 	}
 
 	/**
@@ -42,5 +48,4 @@ public class Accueil extends HttpServlet {
 		
 		//doGet(request, response);
 	}
-
 }
