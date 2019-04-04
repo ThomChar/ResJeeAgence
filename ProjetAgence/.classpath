@@ -37,5 +37,8 @@
 	<classpathentry kind="lib" path="D:/Pro/Cours/DI4/S8/ReseauJEE/Hib/hibernate-release-5.4.2.Final/lib/osgi/org.osgi.compendium-5.0.0.jar"/>
 	<classpathentry kind="lib" path="D:/Pro/Cours/DI4/S8/ReseauJEE/Hib/hibernate-release-5.4.2.Final/lib/osgi/org.osgi.core-6.0.0.jar"/>
 	<classpathentry kind="lib" path="D:/Pro/Cours/DI4/S8/ReseauJEE/Hib/mysql-connector-java-5.1.13/mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="D:/Pro/Cours/DI4/S8/ReseauJEE/Projet/ProjetAgence/WebContent/WEB-INF/lib/hibernate-spatial-5.4.2.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Pro/Cours/DI4/S8/ReseauJEE/Hib/hibernate-release-5.4.2.Final/lib/jpa-metamodel-generator/hibernate-jpamodelgen-5.4.2.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Pro/Cours/DI4/S8/ReseauJEE/Hib/hibernate3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -27,7 +27,7 @@ public class test {
 		 System.out.println(activite.toString());
 		// 5 : Fermeture transaction 
 		 tx.commit();
-		Activite activiterecup = cx.getConnection().find(Activite.class, 2);
+		Activite activiterecup = cx.getConnection().find(Activite.class, 28);
 		System.out.println("Recup :: "+activiterecup.toString());
 		/*System.out.println("adresse=" + personneAdresse.getAdresse().getRue() + ", "
 				+ personneAdresse.getAdresse().getCodePostal() + " " + personneAdresse.getAdresse().getVille());*/
