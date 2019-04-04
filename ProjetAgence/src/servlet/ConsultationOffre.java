@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Categorie;
 import model.Lieu;
 import model.OffreVoyage;
+import model.Tarif;
 
 /**
  * Servlet implementation class Accueil
@@ -40,9 +41,20 @@ public class ConsultationOffre extends HttpServlet {
 		ArrayList<OffreVoyage> listeOffresVoyages = new ArrayList<OffreVoyage>();
 		ArrayList<Lieu> listeLieux = new ArrayList<Lieu>();
 		ArrayList<Categorie> listeCategorie = new ArrayList<Categorie>();
+		Lieu lieu1 = new Lieu("Polytech Tours", "France");
+		Categorie cat1 = new Categorie("enfant");
+		Categorie cat2 = new Categorie("étudiant");
 		
-
+		OffreVoyage offreVoyage = new OffreVoyage("Un super voyage !", lieu1, "10/06/2019", "16/062019");
 		
+		Tarif t1 = new Tarif(11, offreVoyage, cat1);
+		Tarif t2 = new Tarif(17, offreVoyage, cat2);
+		offreVoyage.getListeTarifs().add(t1);
+		offreVoyage.getListeTarifs().add(t2);
+		
+		listeOffresVoyages.add(offreVoyage);
+		
+		request.setAttribute("listeOffresVoyages", listeOffresVoyages);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/consultationOffre.jsp");
 		dispatcher.forward(request, response);

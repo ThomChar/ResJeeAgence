@@ -28,6 +28,10 @@
     <servlet-name>Reservation</servlet-name>
     <servlet-class>servlet.Reservation</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>servlet.Logout</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Accueil</servlet-name>
     <url-pattern></url-pattern>
@@ -55,6 +59,10 @@
   <servlet-mapping>
     <servlet-name>Reservation</servlet-name>
     <url-pattern>/Reservation</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
