@@ -1,6 +1,7 @@
 package gestionnaire;
 
 import java.util.Date;
+import java.util.List;
 
 import connexionBD.*;
 import model.*;
@@ -104,6 +105,32 @@ public class GestionnaireOffreVoyage {
 			// Commit
 			cx.commit();
 			return tupleOffreVoyage;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Affichage d'une offre de Voyage
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<OffreVoyage> getOffresVoyages() throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			System.out.println("gestionnaireOfreVoyage getOffresVoyages");
+			List<OffreVoyage> OffresVoyages = offreVoyages.getListeOffresVoyage();
+			if (OffresVoyages == null)
+				throw new AgencyException("Offre Voyage inexistante: ");
+			
+			System.out.println("after getOffresVoyages");
+			System.out.println(OffresVoyages.toString());
+			
+			// Commit
+			cx.commit();
+			return OffresVoyages;
 		} catch (Exception e) {
 			cx.rollback();
 			throw e;

@@ -113,6 +113,7 @@ public class TableOffreVoyage {
      */
     public List<OffreVoyage> getListeOffresVoyage()
     {
+    	System.out.println("tableOfreVoyage getListeOffresVoyage");
         return stmtListToutesOffreVoyages.getResultList();
     }
 }
