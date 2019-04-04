@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import table.TableEmploye;
+
 public class GestionnaireEmploye {
 
 	private int matricule;
@@ -18,6 +20,9 @@ public class GestionnaireEmploye {
 		  PARTIEL;
 		}
 	
+	public GestionnaireEmploye(TableEmploye tableEmploye) {
+		// TODO Auto-generated constructor stub
+	}
 	public int getMatricule() {
 		return matricule;
 	}

@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Connexion {
 
+	//@PersistenceContext(unitName="agencedb")
 	private EntityManager em;
     private EntityManagerFactory emf;
 

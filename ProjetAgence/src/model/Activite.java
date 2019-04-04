@@ -28,6 +28,11 @@ public class Activite {
 		
 	}
 	
+	public Activite() {
+		super();
+	
+	}
+	
 	public int getIdActivite() {
 		return idActivite;
 	}

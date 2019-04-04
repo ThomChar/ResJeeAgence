@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import table.TableCategorie;
+import table.TableTarif;
+
 /*import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -14,6 +17,9 @@ public class GestionnaireCategorie {
 	private int idCategorie;
 	private String nomCategorie;
 	
+	public GestionnaireCategorie(TableCategorie tableCategorie, TableTarif tableTarif) {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdCategorie() {
 		return idCategorie;
 	}

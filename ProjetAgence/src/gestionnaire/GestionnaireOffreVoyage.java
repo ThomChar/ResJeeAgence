@@ -17,7 +17,7 @@ public class GestionnaireOffreVoyage {
 	public GestionnaireOffreVoyage(TableOffreVoyage offreVoyages, TableLieu lieus, TableTarif tarifs)throws AgencyException {
 		this.cx = offreVoyages.getConnexion();
 		
-		if (lieus.getConnexion() == tarifs.getConnexion() && lieus.getConnexion() == tarifs.getConnexion()) { 
+		if (lieus.getConnexion() == offreVoyages.getConnexion() && lieus.getConnexion() == tarifs.getConnexion()) { 
 			this.offreVoyages = offreVoyages;
 			this.lieus = lieus;
 			this.tarifs = tarifs;

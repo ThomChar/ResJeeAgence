@@ -38,15 +38,15 @@ public class GestionnaireActivite {
 
 		try {
 			// Vérifie si l activite existe déjà
-
+			cx.demarreTransaction();
 			if (activites.existe(nomActivite))
 				throw new AgencyException("Cette activite existe deja ");
-
+			System.out.println("je suis la "+nomActivite);
 			Activite tupleActivite = new Activite(nomActivite);
 			
 			// Ajout de l activite dans la table des activites
 			activites.creer(tupleActivite);
-
+			System.out.println("je suis la maintenant "+nomActivite);
 			// Commit
 			cx.commit();
 		} catch (Exception e) {
@@ -62,24 +62,26 @@ public class GestionnaireActivite {
 	 */
 	public void supprime(String nomActivite) throws AgencyException, Exception {
 		try {
-			
+			cx.demarreTransaction();
 			// Validation
 			Activite tupleActivite = activites.getActivite(nomActivite);
+			System.out.println("sup1");
 			if (tupleActivite == null)
 				throw new AgencyException("Activite inexistant: " + tupleActivite);
-			if (!tupleActivite.isActive())
+			if (tupleActivite.isActive())
 				throw new AgencyException("Activite " + nomActivite + "est encore liés à des occupations");
 
 			// Suppression de l'activite
+			//cx.getConnection().remove(tupleActivite);
 			boolean testExiste = activites.supprimer(tupleActivite);
-			
+			System.out.println("sup2");
 			if (testExiste == false)
 				throw new AgencyException("Equipe " + nomActivite + " inexistante");
 			
-			List<Occupation> listOccupationActivite = occupations.getOccupationsActivite(tupleActivite.getIdActivite());
+			/*List<Occupation> listOccupationActivite = occupations.getOccupationsActivite(tupleActivite.getIdActivite());
 			for(Occupation occupation :listOccupationActivite) {
 				occupations.supprimer(occupation);			//nécessaire si cascade ?
-			}
+			}*/
 
 			// Commit
 			cx.commit();
@@ -98,6 +100,7 @@ public class GestionnaireActivite {
 		
 		// Validation
 		try {
+			cx.demarreTransaction();
 			Activite tupleActivite = activites.getActivite(nomActivite);
 			if (tupleActivite == null)
 				throw new AgencyException("Activite inexistante: " + nomActivite);
@@ -119,6 +122,7 @@ public class GestionnaireActivite {
 	public List<Occupation> lectureOcccupationsActivite(String nomActivite) throws AgencyException, Exception {
 		// Validation
 		try {
+			cx.demarreTransaction();
 			Activite tupleActivite = activites.getActivite(nomActivite);
 			if (tupleActivite == null)
 				throw new AgencyException("Activite inexistante : " + nomActivite);
@@ -139,18 +143,19 @@ public class GestionnaireActivite {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	 /*public void affichageEquipes() throws AgencyException, Exception {
+	 public List<Activite> affichageActivites() throws AgencyException, Exception {
 		
 		cx.demarreTransaction();
 
-		List<Activite> list = activites.calculerListeEquipes();
+		List<Activite> list = activites.getListeActivites();
 
 		for (Activite a : list) {
 			System.out.println(a.toString());
 		}
-
+		
 		cx.commit();
+		return list;
 
-	}*/
+	}
 
 }
