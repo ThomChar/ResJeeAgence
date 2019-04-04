@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.OffreVoyage;
+
 /**
  * Servlet implementation class Accueil
  */
@@ -32,13 +34,36 @@ public class Reservation extends HttpServlet {
 		
 		// on récupère la réservation passer en paramètre
 		int idOffreVoyage = Integer.valueOf(request.getParameter("offreVoyage"));
-				
-		// on vérifie que l'offre voyage exite
-		
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession();
 
+		try {
+			// Si c'est la première fois qu'on essaie de se logguer, ou
+		       // d'inscrire quelqu'un
+	       if (!AgenceHelper.gestionnairesCrees(session))
+	       {
+	           AgenceHelper.creerGestionnaire(getServletContext(), session);
+	           AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6");
+	       }
+	       
+			// on vérifie que l'offre voyage exite
+			OffreVoyage offreVoyage = (OffreVoyage) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().affichageOffreVoyage(idOffreVoyage);
+			
+			if(offreVoyage != null)
+				System.out.println(offreVoyage.toString());
+			else
+				System.out.println("offreVoyage == null");
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
+			dispatcher.forward(request, response);
+		
+		} catch(Exception e) {
+			
+			request.setAttribute("erreur", e.getMessage());
+			System.out.println("AAAAAAAAAA: "+e.getMessage());
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
+			dispatcher.forward(request, response);
+		}
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
