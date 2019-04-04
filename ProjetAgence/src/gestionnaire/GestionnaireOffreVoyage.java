@@ -99,9 +99,7 @@ public class GestionnaireOffreVoyage {
 			cx.demarreTransaction();
 			OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffreVoyage);
 			if (tupleOffreVoyage == null)
-				throw new AgencyException("Offre Voyage inexistante");
-			
-			
+				throw new AgencyException("Offre Voyage inexistante: " + idOffreVoyage);
 			System.out.println(tupleOffreVoyage.toString());
 			
 			// Commit

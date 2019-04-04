@@ -48,7 +48,7 @@ public class ConsultationOffre extends HttpServlet {
 	       }
 	       
 	       System.out.println("avant");
-	       ArrayList<OffreVoyage> offresVoyages = (ArrayList<OffreVoyage>) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().getOffresVoyages();
+	       //ArrayList<OffreVoyage> offresVoyages = (ArrayList<OffreVoyage>) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().getOffresVoyages();
 	       System.out.println("après");
 	       
 			// on récupère toutes les offres de voyages
@@ -69,9 +69,9 @@ public class ConsultationOffre extends HttpServlet {
 			
 			listeOffresVoyages.add(offreVoyage);
 
-			System.out.println("AAAAAAAAAA:"+offresVoyages.size());
+			System.out.println("AAAAAAAAAA:"+listeOffresVoyages.size());
 			
-			request.setAttribute("listeOffresVoyages", offresVoyages);
+			request.setAttribute("listeOffresVoyages", listeOffresVoyages);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/consultationOffre.jsp");
 			dispatcher.forward(request, response);
