@@ -36,9 +36,15 @@ public class OffreVoyage {
 		super();
 		this.description = description;
 		this.listeTarifs = new LinkedList<Tarif>();
+		this.listeReservations = new LinkedList<Reservation>();
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.lieu = lieu;
+	}
+	
+	public OffreVoyage() {
+		super();
+	
 	}
 	
 	public int getIdOffre() {
@@ -119,10 +125,17 @@ public class OffreVoyage {
 
 
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "OffreVoyage [idOffreVoyage=" + idOffreVoyage + ", description=" + description + ", dateDebut="
 				+ dateDebut + ", dateFin=" + dateFin + ", listeTarifs=" + listeTarifs + ", listeReservations="
-				+ listeReservations + ", lieu=" + lieu + "]";
+				+ listeReservations + ", lieu=" + lieu.toString() + "]";
+	}*/
+	
+	@Override
+	public String toString() {
+		return "OffreVoyage [idOffreVoyage=" + idOffreVoyage + ", description=" + description + ", dateDebut="
+				+ dateDebut + ", dateFin=" + dateFin +", listeTarifs=" + listeTarifs + ", listeReservations="
+						+ listeReservations + "]";
 	}
 }

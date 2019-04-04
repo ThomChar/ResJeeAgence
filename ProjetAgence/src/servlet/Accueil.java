@@ -24,6 +24,8 @@ import org.hibernate.StatelessSession;
 import connexionBD.Connexion;
 import connexionBD.HibernateUtil;
 import model.Activite;
+import model.Lieu;
+import model.OffreVoyage;
 
 /**
  * Servlet implementation class Accueil
@@ -65,14 +67,28 @@ public class Accueil extends HttpServlet {
             System.out.println("Servlet UserLogin : POST Création des gestionnaires");
             //AgenceHelper.creerGestionnaire(getServletContext(), session);
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut");
-            System.out.println("1");
+            System.out.println("static Lieu");
+            //Lieu lieutest = new Lieu("Polytech", "France");
+            System.out.println("static Lieu done");
+            //AgenceHelper.getAgenceInterrogation(session).getGestionLieu().ajouter("Polytech", "France");
+            System.out.println("ajout Lieu");
+            //lieutest = AgenceHelper.getAgenceInterrogation(session).getGestionLieu().affichageLieu("Polytech", "France");
+            //AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().ajouter("description", lieutest,  "04/04/2019", "24/04/2019");
+            System.out.println("ajout offre");
+            OffreVoyage test = AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().affichageOffreVoyage(2);
+            System.out.println(test.toString());
+            Lieu tedgdtdgf = test.getLieu();
+            System.out.println(tedgdtdgf.toString());
+            
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().supprime("salut3");
+            //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().getActivite("salut");
+            //Activite test = AgenceHelper.getAgenceInterrogation(session).getGestionActivite().getActivite("salut");
+            //System.out.println(test.toString());
+           // AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivite("salut");
             System.out.println("1");
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivite("salut");
+            //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().lectureOcccupationsActivite("salut");
             System.out.println("1");
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().lectureOcccupationsActivite("salut");
-            System.out.println("1");
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivites();
+            //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivites();
             System.out.println("1");
         
 		}catch(Exception e){

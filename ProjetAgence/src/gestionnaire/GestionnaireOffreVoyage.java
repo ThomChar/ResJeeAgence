@@ -1,6 +1,7 @@
 package gestionnaire;
 
 import java.util.Date;
+import java.util.List;
 
 import connexionBD.*;
 import model.*;
@@ -48,7 +49,7 @@ public class GestionnaireOffreVoyage {
 				throw new AgencyException("Ce lieu n'existe pas ");
 			
 			OffreVoyage tupleOffreVoyage = new OffreVoyage(description, lieu, dateDebut, dateFin);
-			
+			tupleLieu.ajouterOffreVoyage(tupleOffreVoyage);
 			// Ajout de l'offre de voyage dans la table
 			offreVoyages.creer(tupleOffreVoyage);
 
@@ -98,12 +99,33 @@ public class GestionnaireOffreVoyage {
 			cx.demarreTransaction();
 			OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffreVoyage);
 			if (tupleOffreVoyage == null)
-				throw new AgencyException("Offre Voyage inexistante: " + tupleOffreVoyage);
+				throw new AgencyException("Offre Voyage inexistante");
+			
+			
 			System.out.println(tupleOffreVoyage.toString());
 			
 			// Commit
 			cx.commit();
 			return tupleOffreVoyage;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Affichage d'une offre de Voyage
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<OffreVoyage> affichageOffresVoyage() throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			List<OffreVoyage> listeOfrreVoyage = offreVoyages.getListeOffresVoyage();
+			// Commit
+			cx.commit();
+			return listeOfrreVoyage;
 		} catch (Exception e) {
 			cx.rollback();
 			throw e;

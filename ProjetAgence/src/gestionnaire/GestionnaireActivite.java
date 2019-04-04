@@ -155,5 +155,24 @@ public class GestionnaireActivite {
 		return list;
 
 	}
+	 
+	 /**
+		 * Affichage de l'ensemble des activites de la table.
+		 * 
+		 * @throws AgencyException, Exception
+		 */
+		 public Activite getActivite(String nomActivite) throws AgencyException, Exception {
+			
+			cx.demarreTransaction();
+
+			Activite activite = activites.getActivite(nomActivite);
+			
+			if (activite == null)
+				throw new AgencyException("Activite inexistante");
+			
+			cx.commit();
+			return activite;
+
+		}
 
 }

@@ -37,6 +37,10 @@ public class Lieu {
 		this.listeAVisite = new LinkedList<AVisite>();
 	}
 	
+	public Lieu() {
+		super();
+	
+	}
 	public int getIdLieu() {
 		return idLieu;
 	}

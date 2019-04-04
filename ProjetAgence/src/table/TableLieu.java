@@ -50,6 +50,7 @@ public class TableLieu {
 	 */
 	public Lieu getLieu(String nomLieu, String pays) {
 		stmtExiste.setParameter("nomLieu", nomLieu);
+		stmtExiste.setParameter("pays", pays);
 		List<Lieu> lieus = stmtExiste.getResultList();
 		if (!lieus.isEmpty()) {
 			return lieus.get(0);
