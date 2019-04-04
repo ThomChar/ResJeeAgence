@@ -3,8 +3,11 @@ package gestionnaire;
 import connexionBD.AgencyException;
 import connexionBD.Connexion;
 import model.Activite;
+import model.Categorie;
 import model.Lieu;
 import model.Occupation;
+import model.Participant;
+import model.Reservation;
 import table.TableActivite;
 import table.TableCategorie;
 import table.TableLieu;
@@ -42,21 +45,21 @@ public class GestionnaireParticipant {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	/*public void ajouter(int idLieu, int idActivite) throws AgencyException, Exception {
+	public void ajouter(int nombreParticipants, Categorie categorie, Reservation reservation) throws AgencyException, Exception {
 
 		try {
 			cx.demarreTransaction();
 			// Vérifie si l occupation existe déjà
 
-			if (occupations.existe(idLieu, idActivite))
-				throw new AgencyException("Cette occupations existe deja pour ce Lieu ");
-
-			Activite tupleActivite = activites.getActiviteById(idActivite);
-			Lieu tupleLieu = lieus.getLieubyId(idLieu);
-			Occupation tupleOccupation = new Occupation(tupleLieu, tupleActivite);
+			if (!reservations.existe(reservation.getIdReservation()))
+				throw new AgencyException("Cette reservation n'existe pas pour ce Participant ");
+			if (!categories.existe(categorie.getIdCategorie()))
+				throw new AgencyException("Cette categorie n'existe pas pour ce Participant ");
 			
-			// Ajout de l activite dans la table des activites
-			occupations.creer(tupleOccupation);
+			Participant tupleParticipant = new Participant(nombreParticipants, categorie, reservation);
+			
+			// Ajout du participant dans la table des participants
+			participants.creer(tupleParticipant);
 
 			// Commit
 			cx.commit();
@@ -64,7 +67,7 @@ public class GestionnaireParticipant {
 			cx.rollback();
 			throw e;
 		}
-	}*/
+	}
 
 	/**
 	 * Supprime occupation de la base de données.

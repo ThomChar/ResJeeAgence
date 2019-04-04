@@ -49,7 +49,7 @@ public class GestionnaireOffreVoyage {
 				throw new AgencyException("Ce lieu n'existe pas ");
 			
 			OffreVoyage tupleOffreVoyage = new OffreVoyage(description, lieu, dateDebut, dateFin);
-			
+			tupleLieu.ajouterOffreVoyage(tupleOffreVoyage);
 			// Ajout de l'offre de voyage dans la table
 			offreVoyages.creer(tupleOffreVoyage);
 
@@ -99,7 +99,9 @@ public class GestionnaireOffreVoyage {
 			cx.demarreTransaction();
 			OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffreVoyage);
 			if (tupleOffreVoyage == null)
-				throw new AgencyException("Offre Voyage inexistante: " + tupleOffreVoyage);
+				throw new AgencyException("Offre Voyage inexistante");
+			
+			
 			System.out.println(tupleOffreVoyage.toString());
 			
 			// Commit

@@ -43,7 +43,7 @@ public class GestionnaireLieu {
 			// Vérifie si le lieu existe déjà
 
 			if (lieus.existe(nomLieu,pays))
-				throw new AgencyException("Ce lieu existe deja ");
+				throw new AgencyException("Ce lieu existe deja veuillez selectionner d'autres informations ");
 
 			Lieu tupleLieu = new Lieu(nomLieu,pays);
 			
@@ -97,18 +97,20 @@ public class GestionnaireLieu {
 	 * 
 	 * @throws AgencyException,Exception
 	 */
-	public void affichageLieu(String nomLieu, String pays) throws AgencyException, Exception {
+	public Lieu affichageLieu(String nomLieu, String pays) throws AgencyException, Exception {
 		
 		// Validation
 		try {
 			cx.demarreTransaction();
 			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
 			if (tupleLieu == null)
-				throw new AgencyException("Lieu inexistante: " + nomLieu);
+				throw new AgencyException("Lieu inexistant: " + nomLieu);
 			System.out.println(tupleLieu.toString());
 
 			// Commit
 			cx.commit();
+			
+			return tupleLieu;
 		} catch (Exception e) {
 			cx.rollback();
 			throw e;
