@@ -65,7 +65,6 @@ public class GestionnaireActivite {
 			cx.demarreTransaction();
 			// Validation
 			Activite tupleActivite = activites.getActivite(nomActivite);
-			System.out.println("sup1");
 			if (tupleActivite == null)
 				throw new AgencyException("Activite inexistant: " + tupleActivite);
 			if (tupleActivite.isActive())
@@ -74,7 +73,6 @@ public class GestionnaireActivite {
 			// Suppression de l'activite
 			//cx.getConnection().remove(tupleActivite);
 			boolean testExiste = activites.supprimer(tupleActivite);
-			System.out.println("sup2");
 			if (testExiste == false)
 				throw new AgencyException("Equipe " + nomActivite + " inexistante");
 			

@@ -22,10 +22,13 @@ public class Categorie {
 	private int idCategorie;
 	private String nomCategorie;
 	
-	@OneToMany( mappedBy = "categorie", cascade =  CascadeType.PERSIST ) //cascade = CascadeType.ALL
+	@OneToMany( mappedBy = "categorie", cascade =  CascadeType.ALL ) //cascade = CascadeType.ALL
 	  private List< Tarif > listeTarifs;
 	
-	public Categorie(String nomCategorie, Lieu lieu) {
+	@OneToMany( mappedBy = "categorie", cascade =  CascadeType.ALL )
+	  private List< Participant > listeParticipants;
+	
+	public Categorie(String nomCategorie) {
 		super();
 		this.nomCategorie = nomCategorie;
 		this.listeTarifs = new LinkedList<Tarif>();
@@ -67,11 +70,35 @@ public class Categorie {
 	public void supprimerTarif(Tarif tarif) {
 		listeTarifs.remove(tarif);
 	}
+	
+	/**
+	 * Ajoute un participant à la liste des participants d'une categorie
+	 * @param tarif
+	 */
+	public void ajouterParticipant(Participant participant) {
+		listeParticipants.add(participant);
+	}
+	
+	/**
+	 * Supprime un participant de la liste de participants d'une categorie
+	 * @param tarif
+	 */
+	public void supprimerParticipant(Participant participant) {
+		listeParticipants.remove(participant);
+	}
 
 	@Override
 	public String toString() {
 		return "Categorie [idCategorie=" + idCategorie + ", nomCategorie=" + nomCategorie + ", listeTarifs="
 				+ listeTarifs + "]";
+	}
+
+	public List<Participant> getListeParticipants() {
+		return listeParticipants;
+	}
+
+	public void setListeParticipants(List<Participant> listeParticipants) {
+		this.listeParticipants = listeParticipants;
 	}
 	
 }

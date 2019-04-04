@@ -19,13 +19,13 @@ public class Lieu {
 	private String nomLieu;
 	private String pays;
 	
-	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.PERSIST )
+	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
 	private List< OffreVoyage > listeOffresVoyage;
 	
-	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.PERSIST )
+	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
 	private List< Occupation > listeOccupations;
 	
-	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.PERSIST )
+	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
 	private List< AVisite > listeAVisite;
 	
 	public Lieu(String nomLieu, String pays) {
