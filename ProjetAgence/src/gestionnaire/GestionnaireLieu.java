@@ -39,6 +39,7 @@ public class GestionnaireLieu {
 	public void ajouter(String nomLieu, String pays) throws AgencyException, Exception {
 
 		try {
+			cx.demarreTransaction();
 			// Vérifie si le lieu existe déjà
 
 			if (lieus.existe(nomLieu,pays))
@@ -64,7 +65,7 @@ public class GestionnaireLieu {
 	 */
 	public void supprime(String nomLieu, String pays) throws AgencyException, Exception {
 		try {
-			
+			cx.demarreTransaction();
 			// Validation
 			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
 			if (tupleLieu == null)
@@ -100,6 +101,7 @@ public class GestionnaireLieu {
 		
 		// Validation
 		try {
+			cx.demarreTransaction();
 			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
 			if (tupleLieu == null)
 				throw new AgencyException("Lieu inexistante: " + nomLieu);
@@ -121,6 +123,7 @@ public class GestionnaireLieu {
 	public List<Occupation> lectureOcccupationsLieu(String nomLieu, String pays) throws AgencyException, Exception {
 		// Validation
 		try {
+			cx.demarreTransaction();
 			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
 			if (tupleLieu == null)
 				throw new AgencyException("Lieu inexistante : " + nomLieu);

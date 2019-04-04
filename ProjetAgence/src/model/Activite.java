@@ -18,7 +18,7 @@ public class Activite {
 	private int idActivite;
 	private String nomActivite;
 	
-	@OneToMany( mappedBy = "activite", cascade =  CascadeType.PERSIST )
+	@OneToMany( mappedBy = "activite", cascade =  CascadeType.ALL )
 	private List< Occupation > listeOccupations;
 	
 	public Activite(String nomActivite) {

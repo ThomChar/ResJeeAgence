@@ -16,6 +16,8 @@ public class GestionnaireAgence
     private GestionnaireCategorie gestionCategorie;
     private GestionnaireTarif gestionTarif;
     private GestionnaireOccupation gestionOccupation;
+    private GestionnaireParticipant gestionParticipant;
+    private GestionnaireReservation gestionReservation;
     
     private TableActivite tableActivite;
     private TableOffreVoyage tableOffreVoyage;
@@ -25,6 +27,8 @@ public class GestionnaireAgence
     private TableCategorie tableCategorie;
     private TableTarif tableTarif;
     private TableOccupation tableOccupation;
+    private TableParticipant tableParticipant;
+    private TableReservation tableReservation;
 
     public GestionnaireAgence() throws AgencyException, SQLException
     {
@@ -37,15 +41,26 @@ public class GestionnaireAgence
         tableCategorie = new TableCategorie(cx);
         tableTarif = new TableTarif(cx);
         tableOccupation = new TableOccupation(cx);
+        tableParticipant = new TableParticipant(cx);
+        tableReservation = new TableReservation(cx);
         
         gestionActivite = new GestionnaireActivite(tableActivite, tableOccupation);
-        //gestionOffreVoyage = new GestionnaireOffreVoyage(tableOffreVoyage, tableLieu, tableTarif);
-        gestionEmploye = new GestionnaireEmploye(tableEmploye);
+        System.out.println("test1");
+        gestionOffreVoyage = new GestionnaireOffreVoyage(tableOffreVoyage, tableLieu, tableTarif);
+        System.out.println("test1");
+        //gestionEmploye = new GestionnaireEmploye(tableEmploye);
         gestionLieu = new GestionnaireLieu(tableLieu, tableOccupation, tableAVisite, tableOffreVoyage);
+        System.out.println("test1");
         gestionAVisite = new GestionnaireAVisite(tableLieu, tableAVisite);
-        gestionCategorie = new GestionnaireCategorie(tableCategorie, tableTarif);
-        gestionTarif = new GestionnaireTarif(tableTarif, tableCategorie, tableOffreVoyage);
+        System.out.println("test1");
+        //gestionCategorie = new GestionnaireCategorie(tableCategorie, tableTarif, tableParticipant);
+        System.out.println("test1");
+        //gestionTarif = new GestionnaireTarif(tableTarif, tableCategorie, tableOffreVoyage);
+        System.out.println("test1");
         gestionOccupation = new GestionnaireOccupation(tableActivite, tableLieu, tableOccupation);
+        System.out.println("test1");
+        //gestionParticipant = new GestionnaireParticipant(tableParticipant,tableReservation,tableCategorie);
+        //gestionReservation = new GestionnaireReservation(tableReservation,tableOffreVoyage,tableParticipant);
     }
 
     public Connexion getConnexion() {

@@ -1,10 +1,20 @@
 package gestionnaire;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import connexionBD.AgencyException;
+import connexionBD.Connexion;
+import model.Categorie;
+import model.Lieu;
+import model.OffreVoyage;
 import table.TableCategorie;
+import table.TableLieu;
+import table.TableOffreVoyage;
+import table.TableParticipant;
 import table.TableTarif;
 
 /*import javax.persistence.EntityManager;
@@ -14,23 +24,107 @@ import javax.persistence.Query;*/
 
 public class GestionnaireCategorie {
 
-	private int idCategorie;
-	private String nomCategorie;
+
+	private TableCategorie categories;
+	private TableTarif tarifs;
+	private TableParticipant participants;
+	private Connexion cx;
 	
-	public GestionnaireCategorie(TableCategorie tableCategorie, TableTarif tableTarif) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Creation d'une instance
+	 */
+	public GestionnaireCategorie(TableCategorie tableCategorie, TableTarif tableTarif, TableParticipant tableParticipant)throws AgencyException {
+		this.cx = categories.getConnexion();
+		
+		if (categories.getConnexion() == tarifs.getConnexion() && categories.getConnexion() == participants.getConnexion()) { 
+			this.categories = categories;
+			this.tarifs = tarifs;
+			this.participants = participants;
+		} else {
+			throw new AgencyException(
+					"Les instances de categories, de tarifs et de participants n'utilisent pas la même connexion au serveur");
+		}
 	}
-	public int getIdCategorie() {
-		return idCategorie;
+	
+	/**
+	 * Ajout d'une nouvelle categorie dans la base de données. Si elle existe déjà ,
+	 * une exception est levée.
+	 * 
+	 * @throws AgencyException, Exception
+	 */
+	public void ajouter(String nomCategorie) throws AgencyException, Exception {
+		try {
+			cx.demarreTransaction();
+			// Vérifie si l'offre de voyage existe déjà
+
+			/*if (offreVoyages.existeByContent(description, lieu))
+				throw new AgencyException("Cette offre de Voyage existe deja ");*/
+			
+			//Categorie tupleCategorie = categories.getCategorie(nomCategorie);
+			if (categories.existeByContent(nomCategorie))
+				throw new AgencyException("Cette categorie existe deja ");
+			
+			Categorie tupleCategorie = new Categorie(nomCategorie);
+			
+			// Ajout de la categorie dans la table
+			categories.creer(tupleCategorie);
+
+			// Commit
+			cx.commit();
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
 	}
-	public void setIdCategorie(int idCategorie) {
-		this.idCategorie = idCategorie;
+
+	/**
+	 * Supprime categorie de la base de données.
+	 * 
+	 * @throws AgencyException, Exception
+	 */
+	public void supprime(int idCategorie) throws AgencyException, Exception {
+		try {
+			cx.demarreTransaction();
+			// Validation
+			Categorie tupleCategorie = categories.getCategorieById(idCategorie);
+			if (tupleCategorie == null)
+				throw new AgencyException("Categorie inexistante : " + tupleCategorie);
+			
+			// Suppression de la categorie
+			boolean testExiste = categories.supprimer(tupleCategorie);	//regarder si lasuppression encascade sinon il faut supprimer dans les listes
+			
+			if (testExiste == false)
+				throw new AgencyException("Categorie " + tupleCategorie + " inexistante");
+
+			// Commit
+			cx.commit();
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
 	}
-	public String getNomCategorie() {
-		return nomCategorie;
-	}
-	public void setNomCategorie(String nomCategorie) {
-		this.nomCategorie = nomCategorie;
+
+	/**
+	 * Affichage de Categorie
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public Categorie affichageCategorie(int idCategorie) throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			Categorie tupleCategorie = categories.getCategorieById(idCategorie);
+			if (tupleCategorie == null)
+				throw new AgencyException("Offre Voyage inexistante: " + tupleCategorie);
+			System.out.println(tupleCategorie.toString());
+			
+			// Commit
+			cx.commit();
+			return tupleCategorie;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
 	}
 	
 }

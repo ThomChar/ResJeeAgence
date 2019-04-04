@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,18 +20,24 @@ public class OffreVoyage {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idOffreVoyage;
 	private String description;
-	//private int idLieu;
+	private String dateDebut;
+	private String dateFin;
 	
-	@OneToMany( mappedBy = "offreVoyage", cascade =  CascadeType.PERSIST )
+	@OneToMany( mappedBy = "offreVoyage", cascade =  CascadeType.ALL )
 	  private List< Tarif > listeTarifs;
+	
+	@OneToMany( mappedBy = "offreVoyage", cascade =  CascadeType.ALL )
+	  private List< Reservation > listeReservations;
 	
 	@ManyToOne(fetch = FetchType.LAZY) // cascade = CascadeType.PERSIST 
 	private Lieu lieu;
 	
-	public OffreVoyage(String description, Lieu lieu) {
+	public OffreVoyage(String description, Lieu lieu, String dateDebut, String dateFin) {
 		super();
 		this.description = description;
 		this.listeTarifs = new LinkedList<Tarif>();
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
 		this.lieu = lieu;
 	}
 	
@@ -62,6 +69,21 @@ public class OffreVoyage {
 		this.lieu = lieu;
 	}
 	
+	public String getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public String getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
+	}
 	/**
 	 * Ajoute un tarif à la liste des tarifs d'une Offre de Voyage
 	 * @param tarif
@@ -77,10 +99,30 @@ public class OffreVoyage {
 	public void supprimerTarif(Tarif tarif) {
 		listeTarifs.remove(tarif);
 	}
+	
+	/**
+	 * Ajoute une reservation à la liste des reservations d'une Offre de Voyage
+	 * @param reservation
+	 */
+	public void ajouterReservation(Reservation reservation) {
+		listeReservations.add(reservation);
+	}
+	
+	
+	/**
+	 * Supprime un reservation  de la liste des reservations d'une Offre de Voyage
+	 * @param reservation
+	 */
+	public void supprimerReservation(Reservation reservation) {
+		listeReservations.remove(reservation);
+	}
+
+
 
 	@Override
 	public String toString() {
-		return "OffreVoyage [idOffre=" + idOffreVoyage + ", description=" + description + ", listeTarifs=" + listeTarifs
-				+ ", lieu=" + lieu + "]";
+		return "OffreVoyage [idOffreVoyage=" + idOffreVoyage + ", description=" + description + ", dateDebut="
+				+ dateDebut + ", dateFin=" + dateFin + ", listeTarifs=" + listeTarifs + ", listeReservations="
+				+ listeReservations + ", lieu=" + lieu + "]";
 	}
 }

@@ -1,5 +1,6 @@
 package table;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import connexionBD.*;
@@ -51,11 +52,11 @@ public class TableOffreVoyage {
 	 * Verifie si une offre de voyage existe.
 	 * 
 	 */
-	public boolean existeByContent(String description, Lieu lieu) {
+	/*public boolean existeByContent(String description, Lieu lieu, Date dateDebut, Date dateFin) {
 		stmtExisteByContent.setParameter("description", description);
 		stmtExisteByContent.setParameter("idLieu", lieu.getIdLieu());
 		return !stmtExisteByContent.getResultList().isEmpty();
-	}
+	}*/
 
 	/**
 	 * Recupere offre  de Voyage correspondant au idOffreVoyage.

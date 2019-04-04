@@ -1,5 +1,7 @@
 package gestionnaire;
 
+import java.util.Date;
+
 import connexionBD.*;
 import model.*;
 import table.*;
@@ -33,19 +35,19 @@ public class GestionnaireOffreVoyage {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void ajouter(String description, Lieu lieu) throws AgencyException, Exception {
-
+	public void ajouter(String description, Lieu lieu, String dateDebut, String dateFin) throws AgencyException, Exception {
 		try {
+			cx.demarreTransaction();
 			// Vérifie si l'offre de voyage existe déjà
 
-			if (offreVoyages.existeByContent(description, lieu))
-				throw new AgencyException("Cette offre de Voyage existe deja ");
+			/*if (offreVoyages.existeByContent(description, lieu))
+				throw new AgencyException("Cette offre de Voyage existe deja ");*/
 			
 			Lieu tupleLieu = lieus.getLieubyId(lieu.getIdLieu());
 			if (tupleLieu == null)
-				throw new AgencyException("Cette offre de Voyage existe deja ");
+				throw new AgencyException("Ce lieu n'existe pas ");
 			
-			OffreVoyage tupleOffreVoyage = new OffreVoyage(description, lieu);
+			OffreVoyage tupleOffreVoyage = new OffreVoyage(description, lieu, dateDebut, dateFin);
 			
 			// Ajout de l'offre de voyage dans la table
 			offreVoyages.creer(tupleOffreVoyage);
@@ -65,7 +67,7 @@ public class GestionnaireOffreVoyage {
 	 */
 	public void supprime(int idOffreVoyage) throws AgencyException, Exception {
 		try {
-			
+			cx.demarreTransaction();
 			// Validation
 			OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffreVoyage);
 			if (tupleOffreVoyage == null)
@@ -91,9 +93,9 @@ public class GestionnaireOffreVoyage {
 	 * @throws AgencyException,Exception
 	 */
 	public OffreVoyage affichageOffreVoyage(int idOffreVoyage) throws AgencyException, Exception {
-		
 		// Validation
 		try {
+			cx.demarreTransaction();
 			OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffreVoyage);
 			if (tupleOffreVoyage == null)
 				throw new AgencyException("Offre Voyage inexistante: " + tupleOffreVoyage);

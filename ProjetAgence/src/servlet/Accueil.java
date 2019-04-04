@@ -55,23 +55,28 @@ public class Accueil extends HttpServlet {
         // Si c'est la première fois qu'on essaie de se logguer, ou
         // d'inscrire quelqu'un
 		try {
+			
         if (!AgenceHelper.gestionnairesCrees(session))
         {
+        	System.out.println("test");
+        	AgenceHelper.creerGestionnaire(getServletContext(), session);
+        }
+        	
             System.out.println("Servlet UserLogin : POST Création des gestionnaires");
-            AgenceHelper.creerGestionnaire(getServletContext(), session);
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6");
+            //AgenceHelper.creerGestionnaire(getServletContext(), session);
+            //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut");
             System.out.println("1");
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().supprime("salut");
+            //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().supprime("salut3");
             System.out.println("1");
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivite("salut2");
+            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivite("salut");
             System.out.println("1");
-            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().lectureOcccupationsActivite("salut2");
+            AgenceHelper.getAgenceInterrogation(session).getGestionActivite().lectureOcccupationsActivite("salut");
             System.out.println("1");
             AgenceHelper.getAgenceInterrogation(session).getGestionActivite().affichageActivites();
             System.out.println("1");
-        }
+        
 		}catch(Exception e){
-			System.out.println("erreur"+e.getMessage());
+			System.out.println("erreur "+e.getMessage());
 		}
 		//cx = new Connexion();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");

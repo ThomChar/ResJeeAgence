@@ -35,7 +35,7 @@ public class GestionnaireAVisite {
 
 		try {
 			// Vérifie si la chose a visite existe déjà
-
+			cx.demarreTransaction();
 			if (aVisites.existe(libelle, lieu))
 				throw new AgencyException("Cette chose a visiter existe deja ");
 			
@@ -62,7 +62,7 @@ public class GestionnaireAVisite {
 	 */
 	public void supprime(String libelle) throws AgencyException, Exception {
 		try {
-			
+			cx.demarreTransaction();
 			// Validation
 			AVisite typleAVisite = aVisites.getAVisite(libelle);
 			if (typleAVisite == null)
@@ -98,6 +98,7 @@ public class GestionnaireAVisite {
 		
 		// Validation
 		try {
+			cx.demarreTransaction();
 			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
 			if (tupleLieu == null)
 				throw new AgencyException("Lieu inexistante: " + nomLieu);
@@ -119,6 +120,7 @@ public class GestionnaireAVisite {
 	public List<AVisite> lectureLieusAVisite(String nomLieu, String pays) throws AgencyException, Exception {
 		// Validation
 		try {
+			cx.demarreTransaction();
 			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
 			if (tupleLieu == null)
 				throw new AgencyException("Lieu inexistante : " + nomLieu);

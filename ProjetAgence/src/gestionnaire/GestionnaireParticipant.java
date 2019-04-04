@@ -1,26 +1,35 @@
 package gestionnaire;
 
-import connexionBD.*;
-import model.*;
-import table.*;
+import connexionBD.AgencyException;
+import connexionBD.Connexion;
+import model.Activite;
+import model.Lieu;
+import model.Occupation;
+import table.TableActivite;
+import table.TableCategorie;
+import table.TableLieu;
+import table.TableOccupation;
+import table.TableParticipant;
+import table.TableReservation;
 
-public class GestionnaireOccupation {
+public class GestionnaireParticipant {
 
-	private TableActivite activites;
-	private TableLieu lieus;
-	private TableOccupation occupations;
+	
+	private TableParticipant participants;
+	private TableReservation reservations;
+	private TableCategorie categories;
 	private Connexion cx;
 	
 	/**
 	 * Creation d'une instance
 	 */
-	public GestionnaireOccupation(TableActivite activites, TableLieu lieus, TableOccupation occupations)throws AgencyException {
-		this.cx = occupations.getConnexion();
+	public GestionnaireParticipant(TableParticipant participants,TableReservation reservations,TableCategorie categories)throws AgencyException {
+		this.cx = participants.getConnexion();
 		
-		if (activites.getConnexion() == occupations.getConnexion() && lieus.getConnexion() == occupations.getConnexion()) { 
-			this.occupations = occupations;
-			this.activites = activites;
-			this.lieus = lieus;
+		if (participants.getConnexion() == reservations.getConnexion() && participants.getConnexion() == categories.getConnexion()) { 
+			this.participants = participants;
+			this.reservations = reservations;
+			this.participants = participants;
 		} else {
 			throw new AgencyException(
 					"Les instances d'activite, de lieu et d'occupation n'utilisent pas la même connexion au serveur");
@@ -33,7 +42,7 @@ public class GestionnaireOccupation {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void ajouter(int idLieu, int idActivite) throws AgencyException, Exception {
+	/*public void ajouter(int idLieu, int idActivite) throws AgencyException, Exception {
 
 		try {
 			cx.demarreTransaction();
@@ -55,14 +64,14 @@ public class GestionnaireOccupation {
 			cx.rollback();
 			throw e;
 		}
-	}
+	}*/
 
 	/**
 	 * Supprime occupation de la base de données.
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void supprime(int idLieu, int idActivite) throws AgencyException, Exception {
+	/*public void supprime(int idLieu, int idActivite) throws AgencyException, Exception {
 		try {
 			cx.demarreTransaction();
 			// Validation
@@ -82,14 +91,14 @@ public class GestionnaireOccupation {
 			cx.rollback();
 			throw e;
 		}
-	}
+	}*/
 
 	/**
 	 * Affichage d'une occupation
 	 * 
 	 * @throws AgencyException,Exception
 	 */
-	public Occupation affichageOccupation(int idLieu, int idActivite) throws AgencyException, Exception {
+	/*public Occupation affichageOccupation(int idLieu, int idActivite) throws AgencyException, Exception {
 		
 		// Validation
 		try {
@@ -106,6 +115,5 @@ public class GestionnaireOccupation {
 			cx.rollback();
 			throw e;
 		}
-	}
-
+	}*/
 }
