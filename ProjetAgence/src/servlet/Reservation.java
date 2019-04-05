@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Categorie;
 import model.OffreVoyage;
+import model.Tarif;
 
 /**
  * Servlet implementation class Accueil
@@ -54,10 +56,10 @@ public class Reservation extends HttpServlet {
 				throw new Exception("L'offre de voyage passée en paramètre n'existe pas.");
 			
 			// on récupère toutes les catégories
-			ArrayList<Categorie> listeCategories = (ArrayList<Categorie>) AgenceHelper.getAgenceInterrogation(session).getGestionCategorie().affichageCategories();
+			List<Tarif> listeTarifs =  offreVoyage.getListeTarifs();
 			
 			request.setAttribute("offreVoyage", offreVoyage);
-			request.setAttribute("listeCategories", listeCategories);
+			request.setAttribute("listeTarifs", listeTarifs);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
 			dispatcher.forward(request, response);
@@ -104,11 +106,10 @@ public class Reservation extends HttpServlet {
 			else
 				throw new Exception("L'offre de voyage passée en paramètre n'existe pas.");
 			
-			// on récupère toutes les catégories
-			ArrayList<Categorie> listeCategories = (ArrayList<Categorie>) AgenceHelper.getAgenceInterrogation(session).getGestionCategorie().affichageCategories();
+	       List<Tarif> listeTarifs =  offreVoyage.getListeTarifs();
 			
 			request.setAttribute("offreVoyage", offreVoyage);
-			request.setAttribute("listeCategories", listeCategories);
+			request.setAttribute("listeTarifs", listeTarifs);
 			request.setAttribute("nom", nom);
 			request.setAttribute("prenom", prenom);
 			request.setAttribute("email", email);
@@ -126,8 +127,33 @@ public class Reservation extends HttpServlet {
             // implémenter test téléphone ultérieurement 
 			
 			// on ajoute la réservation
-             //AgenceHelper.getAgenceInterrogation(session).getGestionR
+             AgenceHelper.getAgenceInterrogation(session).getGestionReservation().ajouter(nom, prenom, email, tel, offreVoyage);
+             System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+             model.Reservation reservation = AgenceHelper.getAgenceInterrogation(session).getGestionReservation().getLastReservation();
+             System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA" + reservation.getIdReservation());
+             for(Tarif tarif: listeTarifs) {
+            	 
+            	 String nbParticipants = request.getParameter(tarif.getCategorie().getNomCategorie());
+            	 System.out.println(nbParticipants);
+            	 System.out.println(tarif.getCategorie().getNomCategorie());
+            	 
+            	 AgenceHelper.getAgenceInterrogation(session).getGestionParticipant().ajouter(Integer.valueOf(nbParticipants), tarif.getCategorie(), reservation);
+             }
+             /*
+             List<Tarif>  listeTarifs = (List<Tarif>) request.getAttribute("listeTarifs");
+	            for(Tarif tarif: listeTarifs) {
+	          %>
+	          <div class="form-group row">
+			    <label for="inputEmail3" class="col-sm-2 col-form-label">nombre de <%= tarif.getCategorie().getNomCategorie() %>(s)</label>
+			    <div class="col-sm-10">
+			      <input type="number" class="form-control" min="0" name="<%= tarif.getCategorie() %>" id="inputEmail3" placeholder="2" <% if(request.getAttribute(tarif.getCategorie().getNomCategorie()) != null) { out.println("value='"+request.getAttribute(tarif.getCategorie().getNomCategorie())+"'"); }%>>
+			    </div>
+			  </div>
+			  <%
+	            }
              
+             */
+             request.setAttribute("messageSuccess", "La réservation a bien été enregistré.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
 			dispatcher.forward(request, response);
 

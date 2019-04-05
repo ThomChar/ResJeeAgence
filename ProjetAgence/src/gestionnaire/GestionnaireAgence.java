@@ -127,6 +127,22 @@ public class GestionnaireAgence
 		this.gestionTarif = gestionTarif;
 	}
 
+	public GestionnaireReservation getGestionReservation() {
+		return gestionReservation;
+	}
+
+	public void setGestionReservation(GestionnaireReservation gestionReservation) {
+		this.gestionReservation = gestionReservation;
+	}
+	
+	public GestionnaireParticipant getGestionParticipant() {
+		return gestionParticipant;
+	}
+
+	public void setGestionParticipant(GestionnaireParticipant gestionParticipant) {
+		this.gestionParticipant = gestionParticipant;
+	}
+	
 	/*public GestionnaireOccupation getGestionOccupation() {
 		return gestionOccupation;
 	}
