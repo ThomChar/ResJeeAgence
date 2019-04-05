@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Employe;
+
 /**
  * Servlet implementation class Accueil
  */
@@ -59,7 +61,12 @@ public class Login extends HttpServlet {
             if(pseudo == null || pseudo.isEmpty() || password== null || password.isEmpty()) {
                     throw new Exception("Le pseudo ou le mot de passe est null");
             }
-            
+            Employe connectedEmploye = AgenceHelper.getAgenceInterrogation(session).getGestionEmploye().getEmployeByPseudo(pseudo);
+            if(connectedEmploye == null) {
+            		throw new Exception("Le pseudo n'est pas correct veuillir le ressaisir");
+            }else if(!connectedEmploye.getPassword().equals(password)) {
+            	    throw new Exception("Le mot de passe n'est pas correct veuillir le ressaisir");
+            }
             //boolean valide = AgenceHelper.getAgenceInterrogation(session).getGestionEmploye().
             if(/*uamanager.validateLogin(email, password)*/ password.equals("password"))
             {

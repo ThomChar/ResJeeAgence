@@ -110,6 +110,31 @@ public class GestionnaireEmploye {
 	}
 	
 	/**
+	 * Affichage d'un Employe
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public Employe getEmployeByPseudo(String pseudo) throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			Employe tupleEmploye = employes.getEmployebyPseudo(pseudo);
+			if (tupleEmploye == null)
+				throw new AgencyException("Employe inexistant");
+			
+			
+			System.out.println(tupleEmploye.toString());
+			
+			// Commit
+			cx.commit();
+			return tupleEmploye;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
 	 * Affichage de la liste des Employes
 	 * 
 	 * @throws AgencyException,Exception

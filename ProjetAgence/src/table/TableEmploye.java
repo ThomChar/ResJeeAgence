@@ -73,6 +73,20 @@ public class TableEmploye {
 		}
 	}
 	
+	/**
+	 * Recupere employe correspondant au pseudo.
+	 * 
+	 */
+	public Employe getEmployebyPseudo(String pseudo) {
+		stmtExisteByContent.setParameter("pseudo", pseudo);
+		List<Employe> employes = stmtExisteByContent.getResultList();
+		if (!employes.isEmpty()) {
+			return employes.get(0);
+		} else {
+			return null;
+		}
+	}
+	
 
 	/**
 	 * Ajout d'une nouvel employe non vide.
