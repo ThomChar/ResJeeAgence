@@ -1,5 +1,7 @@
 package gestionnaire;
 
+import java.util.List;
+
 import connexionBD.AgencyException;
 import connexionBD.Connexion;
 import model.Activite;
@@ -32,15 +34,15 @@ public class GestionnaireParticipant {
 		if (participants.getConnexion() == reservations.getConnexion() && participants.getConnexion() == categories.getConnexion()) { 
 			this.participants = participants;
 			this.reservations = reservations;
-			this.participants = participants;
+			this.categories = categories;
 		} else {
 			throw new AgencyException(
-					"Les instances d'activite, de lieu et d'occupation n'utilisent pas la même connexion au serveur");
+					"Les instances de participants, de reservations et de categories n'utilisent pas la même connexion au serveur");
 		}
 	}
 	
 	/**
-	 * Ajout d'une nouvelle occupation dans la base de données. Si elle existe déjà ,
+	 * Ajout d'un nouveau participant dans la base de données. Si elle existe déjà ,
 	 * une exception est levée.
 	 * 
 	 * @throws AgencyException, Exception
@@ -70,23 +72,23 @@ public class GestionnaireParticipant {
 	}
 
 	/**
-	 * Supprime occupation de la base de données.
+	 * Supprime participant de la base de données.
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	/*public void supprime(int idLieu, int idActivite) throws AgencyException, Exception {
+	public void supprime(int idReservation,int idCategorie) throws AgencyException, Exception {
 		try {
 			cx.demarreTransaction();
 			// Validation
-			Occupation tupleOccupation = occupations.getOccupation(idLieu, idActivite);
-			if (tupleOccupation == null)
-				throw new AgencyException("Occupation inexistant: " + tupleOccupation);
+			Participant tupleParticipant = participants.getParticipant(idReservation, idCategorie);
+			if (tupleParticipant == null)
+				throw new AgencyException("Participant inexistant");
 			
-			// Suppression de l'occupation
-			boolean testExiste = occupations.supprimer(tupleOccupation);	//regarder si lasuppression encascade sinon il faut supprimer dans les listes
+			// Suppression du participant
+			boolean testExiste = participants.supprimer(tupleParticipant);	//regarder si lasuppression encascade sinon il faut supprimer dans les listes
 			
 			if (testExiste == false)
-				throw new AgencyException("Occupation " + tupleOccupation + " inexistante");
+				throw new AgencyException("Occupation " + tupleParticipant + " inexistant");
 
 			// Commit
 			cx.commit();
@@ -94,29 +96,76 @@ public class GestionnaireParticipant {
 			cx.rollback();
 			throw e;
 		}
-	}*/
+	}
 
 	/**
-	 * Affichage d'une occupation
+	 * Affichage d'un participant
 	 * 
 	 * @throws AgencyException,Exception
 	 */
-	/*public Occupation affichageOccupation(int idLieu, int idActivite) throws AgencyException, Exception {
+	public Participant affichageParticipant(int idReservation,int idCategorie) throws AgencyException, Exception {
 		
 		// Validation
 		try {
 			cx.demarreTransaction();
-			Occupation tupleOccupation = occupations.getOccupation(idLieu, idActivite);
-			if (tupleOccupation == null)
-				throw new AgencyException("Occupation inexistante: " + tupleOccupation);
-			System.out.println(tupleOccupation.toString());
+			Participant tupleParticipant = participants.getParticipant(idReservation, idCategorie);
+			if (tupleParticipant == null)
+				throw new AgencyException("Participant inexistant ");
+			System.out.println(tupleParticipant.toString());
 			
 			// Commit
 			cx.commit();
-			return tupleOccupation;
+			return tupleParticipant;
 		} catch (Exception e) {
 			cx.rollback();
 			throw e;
 		}
-	}*/
+	}
+	
+	/**
+	 * Affichage de la liste des participants
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<Participant> affichageParticipants() throws AgencyException, Exception {
+		
+		// Validation
+		try {
+			cx.demarreTransaction();
+			List<Participant> listeParticipants = participants.getListeParticipants();
+						
+			// Commit
+			cx.commit();
+			return listeParticipants;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Affichage de la liste des participants correspondant à un idReservation
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<Participant> affichageParticipantsReservation(int idReservation) throws AgencyException, Exception {
+		
+		// Validation
+		try {
+			cx.demarreTransaction();
+			Reservation tupleReservation = reservations.getReservation(idReservation);
+			if (tupleReservation == null)
+				throw new AgencyException("Reservation inexistant ");
+			System.out.println(tupleReservation.toString());
+			
+			List<Participant> listeParticipants = participants.getParticipantsReservation(idReservation);
+						
+			// Commit
+			cx.commit();
+			return listeParticipants;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
 }

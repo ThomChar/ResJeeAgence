@@ -136,4 +136,46 @@ public class GestionnaireAVisite {
 		}
 	}
 	
+	/**
+	 * Affichage la liste des choses a Visite
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<AVisite> affichageAVisites() throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			List<AVisite> listeAVisites = aVisites.getListeAVisites();
+			
+			// Commit
+			cx.commit();
+			return listeAVisites;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Affichage la liste des choses a Visite
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public AVisite affichageAVisite(String libelle) throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			AVisite tupeAVisite = aVisites.getAVisite(libelle);
+			if (tupeAVisite == null)
+				throw new AgencyException("Chose a visite inexistante");
+
+			// Commit
+			cx.commit();
+			return tupeAVisite;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
 }

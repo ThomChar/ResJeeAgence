@@ -18,12 +18,14 @@ public class Employe {
 	private String ville;
 	private int age;
 	private String contrat;
+	private String pseudo;
+	private String password;
 	/*public enum Contrat {
 		  TEMPPLEIN,
 		  PARTIEL;
 		}*/
 	
-	public Employe (String nom, String prenom, String adresse, int codePostal, String ville, int age, String contrat) {
+	public Employe (String nom, String prenom, String adresse, int codePostal, String ville, int age, String contrat,String pseudo,String password) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -32,6 +34,11 @@ public class Employe {
 		this.ville = ville;
 		this.age = age;
 		this.contrat = contrat;
+		this.pseudo = pseudo;
+		this.password = password;
+	}
+	public Employe () {
+		super();
 	}
 	
 	public int getMatricule() {
@@ -85,10 +92,28 @@ public class Employe {
 		this.contrat = contrat;
 	}
 
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "Employe [matricule=" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse
-				+ ", codePostal=" + codePostal + ", ville=" + ville + ", age=" + age + ", contrat=" + contrat + "]";
+				+ ", codePostal=" + codePostal + ", ville=" + ville + ", age=" + age + ", contrat=" + contrat
+				+ ", pseudo=" + pseudo + ", password=" + password + "]";
 	}
+
 	
 }

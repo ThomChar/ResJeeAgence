@@ -34,6 +34,11 @@ public class Participant {
 		this.reservation = reservation;
 		
 	}
+	
+	public Participant() {
+		super();
+		
+	}
 
 	public int getIdParticipant() {
 		return idParticipant;

@@ -48,19 +48,19 @@ public class GestionnaireAgence
         System.out.println("test1");
         gestionOffreVoyage = new GestionnaireOffreVoyage(tableOffreVoyage, tableLieu, tableTarif);
         System.out.println("test1");
-        //gestionEmploye = new GestionnaireEmploye(tableEmploye);
+        gestionEmploye = new GestionnaireEmploye(tableEmploye);
         gestionLieu = new GestionnaireLieu(tableLieu, tableOccupation, tableAVisite, tableOffreVoyage);
         System.out.println("test1");
         gestionAVisite = new GestionnaireAVisite(tableLieu, tableAVisite);
         System.out.println("test1");
-        //gestionCategorie = new GestionnaireCategorie(tableCategorie, tableTarif, tableParticipant);
+        gestionCategorie = new GestionnaireCategorie(tableCategorie, tableTarif, tableParticipant);
         System.out.println("test1");
-        //gestionTarif = new GestionnaireTarif(tableTarif, tableCategorie, tableOffreVoyage);
+        gestionTarif = new GestionnaireTarif(tableTarif, tableCategorie, tableOffreVoyage);
         System.out.println("test1");
         gestionOccupation = new GestionnaireOccupation(tableActivite, tableLieu, tableOccupation);
         System.out.println("test1");
-        //gestionParticipant = new GestionnaireParticipant(tableParticipant,tableReservation,tableCategorie);
-        //gestionReservation = new GestionnaireReservation(tableReservation,tableOffreVoyage,tableParticipant);
+        gestionParticipant = new GestionnaireParticipant(tableParticipant,tableReservation,tableCategorie);
+        gestionReservation = new GestionnaireReservation(tableReservation,tableOffreVoyage,tableParticipant);
     }
 
     public Connexion getConnexion() {

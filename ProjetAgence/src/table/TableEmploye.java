@@ -28,7 +28,7 @@ public class TableEmploye {
 				"select e from Employe e where e.matricule = :matricule",
 				Employe.class);
 		stmtExisteByContent = cx.getConnection().createQuery(
-				"select e from Employe e where e.nom = :nom and e.prenom = :prenom",
+				"select e from Employe e where e.pseudo = :pseudo",
 				Employe.class);
 		stmtListTousEmployes = cx.getConnection().createQuery("select e from Employe e", Employe.class);
 		
@@ -54,9 +54,8 @@ public class TableEmploye {
 	 * Verifie si employe existe.
 	 * 
 	 */
-	public boolean existeByContent(String nom, String prenom) {
-		stmtExisteByContent.setParameter("nom", nom);
-		stmtExisteByContent.setParameter("prenom", prenom);
+	public boolean existeByContent(String pseudo) {
+		stmtExisteByContent.setParameter("pseudo", pseudo);
 		return !stmtExisteByContent.getResultList().isEmpty();
 	}
 

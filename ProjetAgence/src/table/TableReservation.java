@@ -6,6 +6,7 @@ import javax.persistence.TypedQuery;
 
 import connexionBD.Connexion;
 import model.Categorie;
+import model.OffreVoyage;
 import model.Participant;
 import model.Reservation;
 
@@ -27,7 +28,7 @@ public class TableReservation {
 				"select r from Reservation r where r.idReservation = :idReservation",
 				Reservation.class);
 		stmtExisteByContent = cx.getConnection().createQuery(
-				"select r from Reservation r where r.nom = :nom",
+				"select r from Reservation r where r.nom = :nom and r.offreVoyage.lieu.idLieu = :idLieu",
 				Reservation.class);
 		stmtListToutesReservations = cx.getConnection().createQuery("select r from Reservation r", Reservation.class);
 		stmtListReservationsOffre = cx.getConnection().createQuery("select r from Reservation r where r.offreVoyage.idOffreVoyage = : idOffreVoyage", Reservation.class);
@@ -54,8 +55,9 @@ public class TableReservation {
 	 * Verifie si une reservation existe.
 	 * 
 	 */
-	public boolean existeByContent(String nomReservation) {
+	public boolean existeByContent(String nomReservation, OffreVoyage offreVoyage) {
 		stmtExisteByContent.setParameter("nom", nomReservation);
+		stmtExisteByContent.setParameter("idLieu", offreVoyage.getLieu().getIdLieu());
 		return !stmtExisteByContent.getResultList().isEmpty();
 	}
 
@@ -77,8 +79,8 @@ public class TableReservation {
 	 * Recupere les reservations d'une offre de voyage correspondant au idReservation.
 	 * 
 	 */
-	public List<Reservation> getOccupationsActivite(int idReservation) {
-		stmtListReservationsOffre.setParameter("idReservation", idReservation);
+	public List<Reservation> getReservationsOffre(int idOffre) {
+		stmtListReservationsOffre.setParameter("idOffreVoyage", idOffre);
 		List<Reservation> reservations = stmtListReservationsOffre.getResultList();
 		if (!reservations.isEmpty()) {
 			return reservations;
@@ -111,7 +113,7 @@ public class TableReservation {
      * Retourne l'ensemble des categories de la base de données
      * @return
      */
-    public List<Reservation> getListeCategories()
+    public List<Reservation> getListeReservations()
     {
         return stmtListToutesReservations.getResultList();
     }	

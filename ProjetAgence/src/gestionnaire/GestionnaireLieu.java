@@ -118,6 +118,26 @@ public class GestionnaireLieu {
 	}
 
 	/**
+	 * Affichage la liste des choses a Visite
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<Lieu> affichageLieus() throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			List<Lieu> listeLieus = lieus.getListeLieu();
+			
+			// Commit
+			cx.commit();
+			return listeLieus;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
 	 * Lecture des occupations d'un lieu (voir des activite)
 	 * 
 	 * @throws AgencyException, Exception
