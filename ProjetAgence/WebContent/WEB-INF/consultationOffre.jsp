@@ -55,18 +55,18 @@
 		                     	<h3>Activités :</h3>
 		                     	<ul>
 			                     	<%
-			                     	//if(offreVoyage.getLieu().getListeOccupations().size() > 0)
-			                     	//{
-			                     	//	for(Occupation occupation: offreVoyage.getLieu().getListeOccupations()) {
-				                    // 	%>
-				                    		<li><%=// occupation.getActivite().getNomActivite() %></li>
+			                     	if(offreVoyage.getLieu().getListeActivites().size() > 0)
+			                     	{
+			                     		for(Activite activite: offreVoyage.getLieu().getListeActivites()) {
+				                     	%>
+				                    		<li><%= activite.getNomActivite() %></li>
 				                     	<%
-				                    // 	}
-			                     	//}
-			                     	//else
-			                     	//{
+				                     	}
+			                     	}
+			                     	else
+			                     	{
 			                     		%> <span>à venir...</span> <%
-			                     	//}
+			                     	}
 			                     	%>
 			                     </ul>
 		                     </div>

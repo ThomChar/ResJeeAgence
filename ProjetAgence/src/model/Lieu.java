@@ -87,6 +87,14 @@ public class Lieu {
 		this.listeAVisite = listeAVisite;
 	}
 	
+	public List<Activite> getListeActivites() {
+		return listeActivites;
+	}
+
+	public void setListeActivites(List<Activite> listeActivites) {
+		this.listeActivites = listeActivites;
+	}
+	
 	/**
 	 * Ajoute une offre de Voyage à la liste des offres de Voyage d'un Lieu
 	 * @param offreVoyage

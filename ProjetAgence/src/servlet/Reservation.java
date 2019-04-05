@@ -43,10 +43,6 @@ public class Reservation extends HttpServlet {
 	       if (!AgenceHelper.gestionnairesCrees(session))
 	       {
 	           AgenceHelper.creerGestionnaire(getServletContext(), session);
-<<<<<<< HEAD
-	           //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6","description");
-=======
->>>>>>> remi
 	       }
 	       
 			// on vérifie que l'offre voyage exite
