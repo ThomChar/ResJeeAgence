@@ -44,7 +44,7 @@ public class ConsultationOffre extends HttpServlet {
 	       if (!AgenceHelper.gestionnairesCrees(session))
 	       {
 	           AgenceHelper.creerGestionnaire(getServletContext(), session);
-	           AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6");
+	           //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6","description");
 	       }
 	       
 	       System.out.println("avant");

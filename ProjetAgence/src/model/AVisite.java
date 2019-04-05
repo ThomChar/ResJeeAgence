@@ -17,13 +17,15 @@ public class AVisite {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idAVisite;
 	private String libelle;
+	private String description;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Lieu lieu;
 	
-	public AVisite(String libelle, Lieu lieu) {
+	public AVisite(String libelle,String description, Lieu lieu) {
 		super();
 		this.libelle = libelle;
+		this.setDescription(description);
 		this.lieu = lieu;
 	}
 	
@@ -48,9 +50,16 @@ public class AVisite {
 		this.lieu = lieu;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	@Override
 	public String toString() {
-		return "AVisite [idAVisite=" + idAVisite + ", libelle=" + libelle + ", lieu=" + lieu + "]";
+		return "AVisite [idAVisite=" + idAVisite + ", libelle=" + libelle + ", description=" + description + ", lieu=" + lieu + "]";
 	}
 	
 }

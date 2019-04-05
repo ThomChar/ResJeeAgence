@@ -18,13 +18,13 @@ public class test {
 		tx.begin();
 		
 		// 3 : Instanciation Objet métier
-		Activite activite = new Activite("Hibernate2");
-		Activite activite2 = new Activite("Hibernate3");
+		//Activite activite = new Activite("Hibernate2","description");
+		//Activite activite2 = new Activite("Hibernate3","description");
 		
 		// 4 : Persistance Objet/Relationnel : création d'un enregistrement en base
-		cx.getConnection().persist(activite);
-		cx.getConnection().persist(activite2);
-		 System.out.println(activite.toString());
+		//cx.getConnection().persist(activite);
+		//cx.getConnection().persist(activite2);
+		// System.out.println(activite.toString());
 		// 5 : Fermeture transaction 
 		 tx.commit();
 		Activite activiterecup = cx.getConnection().find(Activite.class, 28);

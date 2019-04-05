@@ -35,7 +35,7 @@ public class GestionnaireOccupation {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void ajouter(int idLieu, int idActivite) throws AgencyException, Exception {
+	/*public void ajouter(int idLieu, int idActivite) throws AgencyException, Exception {
 
 		try {
 			cx.demarreTransaction();
@@ -57,7 +57,7 @@ public class GestionnaireOccupation {
 			cx.rollback();
 			throw e;
 		}
-	}
+	}*/
 
 	/**
 	 * Supprime occupation de la base de données.

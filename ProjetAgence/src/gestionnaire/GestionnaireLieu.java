@@ -8,7 +8,7 @@ import table.*;
 public class GestionnaireLieu {
 	
 	private TableLieu lieus;
-	private TableOccupation occupations;
+	//private TableOccupation occupations;
 	private TableAVisite aVisites;
 	private TableOffreVoyage offresVoyage;
 	private Connexion cx;
@@ -16,12 +16,11 @@ public class GestionnaireLieu {
 	/**
 	 * Creation d'une instance
 	 */
-	public GestionnaireLieu(TableLieu lieus, TableOccupation occupations, TableAVisite aVisites, TableOffreVoyage offresVoyage)throws AgencyException {
+	public GestionnaireLieu(TableLieu lieus, TableAVisite aVisites, TableOffreVoyage offresVoyage)throws AgencyException {
 		this.cx = lieus.getConnexion();
-		if (lieus.getConnexion() == occupations.getConnexion() && lieus.getConnexion() == aVisites.getConnexion() 
+		if ( lieus.getConnexion() == aVisites.getConnexion() 
 				&& lieus.getConnexion() == offresVoyage.getConnexion()) { 
 			this.lieus = lieus;
-			this.occupations = occupations;
 			this.aVisites = aVisites;
 			this.offresVoyage = offresVoyage;
 		} else {
@@ -63,11 +62,11 @@ public class GestionnaireLieu {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void supprime(String nomLieu, String pays) throws AgencyException, Exception {
+	public void supprime(int idLieu) throws AgencyException, Exception {
 		try {
 			cx.demarreTransaction();
 			// Validation
-			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
+			Lieu tupleLieu = lieus.getLieubyId(idLieu);
 			if (tupleLieu == null)
 				throw new AgencyException("Lieu inexistant: " + tupleLieu);
 			/*if (!tupleLieu.isActive())
@@ -77,7 +76,7 @@ public class GestionnaireLieu {
 			boolean testExiste = lieus.supprimer(tupleLieu);
 			
 			if (testExiste == false)
-				throw new AgencyException("Lieu " + nomLieu + " inexistante");
+				throw new AgencyException("Lieu inexistante");
 			
 			/*List<Occupation> listOccupationActivite = occupations.getOccupationsActivite(tupleLieu.getIdLieu());
 			for(Occupation occupation :listOccupationActivite) {
@@ -97,14 +96,14 @@ public class GestionnaireLieu {
 	 * 
 	 * @throws AgencyException,Exception
 	 */
-	public Lieu affichageLieu(String nomLieu, String pays) throws AgencyException, Exception {
+	public Lieu affichageLieu(int idLieu) throws AgencyException, Exception {
 		
 		// Validation
 		try {
 			cx.demarreTransaction();
-			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
+			Lieu tupleLieu = lieus.getLieubyId(idLieu);
 			if (tupleLieu == null)
-				throw new AgencyException("Lieu inexistant: " + nomLieu);
+				throw new AgencyException("Lieu inexistant");
 			System.out.println(tupleLieu.toString());
 
 			// Commit
@@ -142,7 +141,7 @@ public class GestionnaireLieu {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public List<Occupation> lectureOcccupationsLieu(String nomLieu, String pays) throws AgencyException, Exception {
+	/*public List<Occupation> lectureOcccupationsLieu(String nomLieu, String pays) throws AgencyException, Exception {
 		// Validation
 		try {
 			cx.demarreTransaction();
@@ -159,5 +158,5 @@ public class GestionnaireLieu {
 			cx.rollback();
 			throw e;
 		}
-	}
+	}*/
 }

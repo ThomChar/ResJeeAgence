@@ -15,7 +15,7 @@ public class GestionnaireAgence
     private GestionnaireAVisite gestionAVisite;
     private GestionnaireCategorie gestionCategorie;
     private GestionnaireTarif gestionTarif;
-    private GestionnaireOccupation gestionOccupation;
+    //private GestionnaireOccupation gestionOccupation;
     private GestionnaireParticipant gestionParticipant;
     private GestionnaireReservation gestionReservation;
     
@@ -26,7 +26,7 @@ public class GestionnaireAgence
     private TableAVisite tableAVisite;
     private TableCategorie tableCategorie;
     private TableTarif tableTarif;
-    private TableOccupation tableOccupation;
+    //private TableOccupation tableOccupation;
     private TableParticipant tableParticipant;
     private TableReservation tableReservation;
 
@@ -40,16 +40,16 @@ public class GestionnaireAgence
         tableAVisite = new TableAVisite(cx);
         tableCategorie = new TableCategorie(cx);
         tableTarif = new TableTarif(cx);
-        tableOccupation = new TableOccupation(cx);
+        //tableOccupation = new TableOccupation(cx);
         tableParticipant = new TableParticipant(cx);
         tableReservation = new TableReservation(cx);
         
-        gestionActivite = new GestionnaireActivite(tableActivite, tableOccupation);
+        gestionActivite = new GestionnaireActivite(tableActivite, tableLieu);
         System.out.println("test1");
         gestionOffreVoyage = new GestionnaireOffreVoyage(tableOffreVoyage, tableLieu, tableTarif);
         System.out.println("test1");
         gestionEmploye = new GestionnaireEmploye(tableEmploye);
-        gestionLieu = new GestionnaireLieu(tableLieu, tableOccupation, tableAVisite, tableOffreVoyage);
+        gestionLieu = new GestionnaireLieu(tableLieu, tableAVisite, tableOffreVoyage);
         System.out.println("test1");
         gestionAVisite = new GestionnaireAVisite(tableLieu, tableAVisite);
         System.out.println("test1");
@@ -57,7 +57,7 @@ public class GestionnaireAgence
         System.out.println("test1");
         gestionTarif = new GestionnaireTarif(tableTarif, tableCategorie, tableOffreVoyage);
         System.out.println("test1");
-        gestionOccupation = new GestionnaireOccupation(tableActivite, tableLieu, tableOccupation);
+        //gestionOccupation = new GestionnaireOccupation(tableActivite, tableLieu, tableOccupation);
         System.out.println("test1");
         gestionParticipant = new GestionnaireParticipant(tableParticipant,tableReservation,tableCategorie);
         gestionReservation = new GestionnaireReservation(tableReservation,tableOffreVoyage,tableParticipant);
@@ -127,13 +127,13 @@ public class GestionnaireAgence
 		this.gestionTarif = gestionTarif;
 	}
 
-	public GestionnaireOccupation getGestionOccupation() {
+	/*public GestionnaireOccupation getGestionOccupation() {
 		return gestionOccupation;
 	}
 
 	public void setGestionOccupation(GestionnaireOccupation gestionOccupation) {
 		this.gestionOccupation = gestionOccupation;
-	}
+	}*/
 
 	public TableActivite getTableActivite() {
 		return tableActivite;
@@ -191,13 +191,13 @@ public class GestionnaireAgence
 		this.tableTarif = tableTarif;
 	}
 
-	public TableOccupation getTableOccupation() {
+	/*public TableOccupation getTableOccupation() {
 		return tableOccupation;
 	}
 
 	public void setTableOccupation(TableOccupation tableOccupation) {
 		this.tableOccupation = tableOccupation;
-	}
+	}*/
 
 
     public void fermer() throws SQLException

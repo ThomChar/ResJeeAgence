@@ -7,10 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class Occupation {
 
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idOccupation;
 	//private int idLieu;
@@ -54,5 +54,5 @@ public class Occupation {
 	@Override
 	public String toString() {
 		return "Occupation [idOccupation=" + idOccupation + ", lieu=" + lieu + ", activite=" + activite + "]";
-	}
+	}*/
 }
