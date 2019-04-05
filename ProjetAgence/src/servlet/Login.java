@@ -49,16 +49,22 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 
         try {
+			// Si c'est la première fois qu'on essaie de se logguer, ou
+		       // d'inscrire quelqu'un
+	       if (!AgenceHelper.gestionnairesCrees(session))
+	       {
+	           AgenceHelper.creerGestionnaire(getServletContext(), session);
+	       }
 
             if(pseudo == null || pseudo.isEmpty() || password== null || password.isEmpty()) {
                     throw new Exception("Le pseudo ou le mot de passe est null");
             }
             
-            //List<UserAccount> user = uamanager.getAllUsers();
-            
+            //boolean valide = AgenceHelper.getAgenceInterrogation(session).getGestionEmploye().
             if(/*uamanager.validateLogin(email, password)*/ password.equals("password"))
             {
                     // la connexion est établie
+            		
                     session.setAttribute("user", pseudo);
                     
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");

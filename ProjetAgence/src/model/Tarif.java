@@ -32,11 +32,6 @@ public class Tarif {
 		this.categorie = categorie;
 	}
 	
-	public Tarif() {
-		super();
-		
-	}
-	
 	public int getIdTarif() {
 		return idTarif;
 	}
