@@ -32,7 +32,7 @@ public class Tarif {
 		this.categorie = categorie;
 	}
 	
-	
+
 	public int getIdTarif() {
 		return idTarif;
 	}

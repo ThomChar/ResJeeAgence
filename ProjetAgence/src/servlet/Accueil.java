@@ -73,6 +73,7 @@ public class Accueil extends HttpServlet {
             System.out.println("1");
             AgenceHelper.getAgenceInterrogation(session).getGestionActivite().lectureOcccupationsActivite("salut2");
 */
+        /*
             //AgenceHelper.creerGestionnaire(getServletContext(), session);
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut");
             System.out.println("static Lieu");
@@ -95,7 +96,7 @@ public class Accueil extends HttpServlet {
             System.out.println("ajout Tarif BD");
             Tarif t1 =  AgenceHelper.getAgenceInterrogation(session).getGestionTarif().affichageTarif(2, 4);
             System.out.println("ajout Tarif done");
-            
+            */
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().supprime("salut3");
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().getActivite("salut");
             //Activite test = AgenceHelper.getAgenceInterrogation(session).getGestionActivite().getActivite("salut");
