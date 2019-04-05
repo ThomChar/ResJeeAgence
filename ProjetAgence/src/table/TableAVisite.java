@@ -8,6 +8,7 @@ import model.*;
 public class TableAVisite {
 	
 	private TypedQuery<AVisite> stmtExiste;
+	private TypedQuery<AVisite> stmtExisteById;
 	private TypedQuery<AVisite> stmtListToutesAVisites;
 	private TypedQuery<AVisite> stmtListToutesAVisiteLieu;
 	// private TypedQuery<Activite> stmtListToutesOccupationsActivite; //a mettre
@@ -22,6 +23,9 @@ public class TableAVisite {
 		this.cx = cx;
 		stmtExiste = cx.getConnection().createQuery(
 				"select a from AVisite a where a.libelle = :libelle and a.lieu.idLieu = :idLieu",
+				AVisite.class);
+		stmtExisteById = cx.getConnection().createQuery(
+				"select a from AVisite a where a.idAVisite = :idAVisite",
 				AVisite.class);
 		stmtListToutesAVisites = cx.getConnection().createQuery("select a from AVisite a", AVisite.class);
 		stmtListToutesAVisiteLieu = cx.getConnection()
@@ -44,6 +48,15 @@ public class TableAVisite {
 		stmtExiste.setParameter("idLieu", lieu.getIdLieu());
 		return !stmtExiste.getResultList().isEmpty();
 	}
+	
+	/**
+	 * Verifie si une chose a visiter existe.
+	 * 
+	 */
+	public boolean existebyId(int IdAVisite) {
+		stmtExisteById.setParameter("IdAVisite", IdAVisite);
+		return !stmtExisteById.getResultList().isEmpty();
+	}
 
 	/**
 	 * Recupere une chose a visiter correspondant au libelle
@@ -52,6 +65,20 @@ public class TableAVisite {
 	public AVisite getAVisite(String libelle) {
 		stmtExiste.setParameter("libelle", libelle);
 		List<AVisite> aVisites = stmtExiste.getResultList();
+		if (!aVisites.isEmpty()) {
+			return aVisites.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Recupere une chose a visiter correspondant au libelle
+	 * 
+	 */
+	public AVisite getAVisiteById(int idAVisite) {
+		stmtExisteById.setParameter("idAVisite", idAVisite);
+		List<AVisite> aVisites = stmtExisteById.getResultList();
 		if (!aVisites.isEmpty()) {
 			return aVisites.get(0);
 		} else {

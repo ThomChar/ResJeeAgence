@@ -22,8 +22,11 @@ public class Lieu {
 	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
 	private List< OffreVoyage > listeOffresVoyage;
 	
+	/*@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
+	private List< Occupation > listeOccupations;*/
+	
 	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
-	private List< Occupation > listeOccupations;
+	private List< Activite > listeActivites;
 	
 	@OneToMany( mappedBy = "lieu", cascade =  CascadeType.ALL )
 	private List< AVisite > listeAVisite;
@@ -33,7 +36,7 @@ public class Lieu {
 		this.nomLieu = nomLieu;
 		this.pays = pays;
 		this.listeOffresVoyage = new LinkedList<OffreVoyage>();
-		this.listeOccupations = new LinkedList<Occupation>();
+		this.listeActivites = new LinkedList<Activite>();
 		this.listeAVisite = new LinkedList<AVisite>();
 	}
 	
@@ -68,13 +71,13 @@ public class Lieu {
 		this.listeOffresVoyage = listeOffresVoyage;
 	}
 
-	public List<Occupation> getListeOccupations() {
+	/*public List<Occupation> getListeOccupations() {
 		return listeOccupations;
 	}
 
 	public void setListeOccupations(List<Occupation> listeOccupations) {
 		this.listeOccupations = listeOccupations;
-	}
+	}*/
 
 	public List<AVisite> getListeAVisite() {
 		return listeAVisite;
@@ -101,20 +104,36 @@ public class Lieu {
 	}
 	
 	/**
+	 * Ajoute une activite à la liste des activite d'un Lieu
+	 * @param activite
+	 */
+	public void ajouterActivite(Activite activite) {
+		listeActivites.add(activite);
+	}
+	
+	/**
+	 * Supprime une activite de la liste des activite d'un Lieu
+	 * @param activite
+	 */
+	public void supprimerActivite(Activite activite) {
+		listeActivites.remove(activite);
+	}
+	
+	/**
 	 * Ajoute une occupation à la liste des occupations d'un lieu
 	 * @param occupation
 	 */
-	public void ajouterOccupation(Occupation occupation) {
+	/*public void ajouterOccupation(Occupation occupation) {
 		listeOccupations.add(occupation);
-	}
+	}*/
 	
 	/**
 	 * Supprime un occupation de la liste de occupations d'une lieu
 	 * @param occupation
 	 */
-	public void supprimerOccupation(Occupation occupation) {
+	/*public void supprimerOccupation(Occupation occupation) {
 		listeOccupations.remove(occupation);
-	}
+	}*/
 	
 	/**
 	 * Ajoute une chose a visiter à la liste des choses a visiter d'un lieu
@@ -135,6 +154,6 @@ public class Lieu {
 	@Override
 	public String toString() {
 		return "Lieu [idLieu=" + idLieu + ", nomLieu=" + nomLieu + ", pays=" + pays + ", listeOffresVoyage="
-				+ listeOffresVoyage + ", listeOccupations=" + listeOccupations + ", listeAVisite=" + listeAVisite + "]";
+				+ listeOffresVoyage + ", listeActivites=" + listeActivites + ", listeAVisite=" + listeAVisite + "]";
 	}
 }

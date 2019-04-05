@@ -31,7 +31,7 @@ public class GestionnaireAVisite {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void ajouter(String libelle, Lieu lieu) throws AgencyException, Exception {
+	public void ajouter(String libelle, String description, Lieu lieu) throws AgencyException, Exception {
 
 		try {
 			// Vérifie si la chose a visite existe déjà
@@ -42,7 +42,7 @@ public class GestionnaireAVisite {
 			if (!lieus.existe(lieu.getNomLieu(), lieu.getPays()))
 				throw new AgencyException("Le lieu selectionne n'existe pas");
 				
-			AVisite tupleAVisite = new AVisite(libelle, lieu);
+			AVisite tupleAVisite = new AVisite(libelle, description, lieu);
 			
 			// Ajout de le chose avisite dans la table des choses a visite
 			aVisites.creer(tupleAVisite);
@@ -60,11 +60,11 @@ public class GestionnaireAVisite {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void supprime(String libelle) throws AgencyException, Exception {
+	public void supprime(int idAVisite) throws AgencyException, Exception {
 		try {
 			cx.demarreTransaction();
 			// Validation
-			AVisite typleAVisite = aVisites.getAVisite(libelle);
+			AVisite typleAVisite = aVisites.getAVisiteById(idAVisite);
 			if (typleAVisite == null)
 				throw new AgencyException("Chose a visiter inexistante: " + typleAVisite);
 			/*if (!tupleLieu.isActive())
@@ -74,7 +74,7 @@ public class GestionnaireAVisite {
 			boolean testExiste = aVisites.supprimer(typleAVisite);
 			
 			if (testExiste == false)
-				throw new AgencyException("Chose a visite " + libelle + " inexistante");
+				throw new AgencyException("Chose a visite inexistante");
 			
 			/*List<Occupation> listOccupationActivite = occupations.getOccupationsActivite(tupleLieu.getIdLieu());
 			for(Occupation occupation :listOccupationActivite) {
@@ -94,14 +94,14 @@ public class GestionnaireAVisite {
 	 * 
 	 * @throws AgencyException,Exception
 	 */
-	public void affichageLieuAVisites(String nomLieu, String pays) throws AgencyException, Exception {
+	public void affichageLieuAVisites(int idLieu) throws AgencyException, Exception {
 		
 		// Validation
 		try {
 			cx.demarreTransaction();
-			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
+			Lieu tupleLieu = lieus.getLieubyId(idLieu);
 			if (tupleLieu == null)
-				throw new AgencyException("Lieu inexistante: " + nomLieu);
+				throw new AgencyException("Lieu inexistante");
 			System.out.println(tupleLieu.toString());
 
 			// Commit
@@ -117,13 +117,13 @@ public class GestionnaireAVisite {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public List<AVisite> lectureLieusAVisite(String nomLieu, String pays) throws AgencyException, Exception {
+	public List<AVisite> lectureLieusAVisite(int idLieu) throws AgencyException, Exception {
 		// Validation
 		try {
 			cx.demarreTransaction();
-			Lieu tupleLieu = lieus.getLieu(nomLieu, pays);
+			Lieu tupleLieu = lieus.getLieubyId(idLieu);
 			if (tupleLieu == null)
-				throw new AgencyException("Lieu inexistante : " + nomLieu);
+				throw new AgencyException("Lieu inexistante ");
 
 			List<AVisite> listAVisites = aVisites.getLieuAVisites(tupleLieu.getIdLieu());
 
@@ -161,11 +161,11 @@ public class GestionnaireAVisite {
 	 * 
 	 * @throws AgencyException,Exception
 	 */
-	public AVisite affichageAVisite(String libelle) throws AgencyException, Exception {
+	public AVisite affichageAVisite(int idAVisite) throws AgencyException, Exception {
 		// Validation
 		try {
 			cx.demarreTransaction();
-			AVisite tupeAVisite = aVisites.getAVisite(libelle);
+			AVisite tupeAVisite = aVisites.getAVisiteById(idAVisite);
 			if (tupeAVisite == null)
 				throw new AgencyException("Chose a visite inexistante");
 

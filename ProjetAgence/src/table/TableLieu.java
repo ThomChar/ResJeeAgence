@@ -45,6 +45,15 @@ public class TableLieu {
 	}
 	
 	/**
+	 * Verifie si une activite existe.
+	 * 
+	 */
+	public boolean existeById(int idLieu) {
+		stmtExisteById.setParameter("idLieu", idLieu);
+		return !stmtExisteById.getResultList().isEmpty();
+	}
+	
+	/**
 	 * Recupere lieu correspondant au couple idLieu idActivite.
 	 * 
 	 */

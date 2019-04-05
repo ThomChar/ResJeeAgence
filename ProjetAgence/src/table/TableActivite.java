@@ -13,6 +13,7 @@ public class TableActivite {
 	private TypedQuery<Activite> stmtExiste;
 	private TypedQuery<Activite> stmtExisteById;
 	private TypedQuery<Activite> stmtListToutesActivites;
+	private TypedQuery<Activite> stmtListToutesActivitesLieu;
 	//private TypedQuery<Activite> stmtListToutesOccupationsActivite;	//a	 mettre dans la table des occupations
 	
 	
@@ -26,6 +27,8 @@ public class TableActivite {
 		stmtExiste = cx.getConnection().createQuery("select a from Activite a where a.nomActivite = :nomActivite",Activite.class);
 		stmtExisteById = cx.getConnection().createQuery("select a from Activite a where a.idActivite = :idActivite",Activite.class);
 		stmtListToutesActivites = cx.getConnection().createQuery("select a from Activite a",Activite.class);
+		stmtListToutesActivitesLieu = cx.getConnection()
+				.createQuery("select a from Activite a where a.lieu.idLieu = :idLieu", Activite.class);
 		//stmtListToutesOccupationsActivite = cx.getConnection().createQuery("select e from Equipe e where e.ligue.nomLigue = :nomLigue",Activite.class);
 	}
 	
@@ -46,6 +49,14 @@ public class TableActivite {
 		return !stmtExiste.getResultList().isEmpty();
 	}
 	
+	/**
+	 * Verifie si une activite existe.
+	 * 
+	 */
+	public boolean existeById(int idActivite) {
+		stmtExiste.setParameter("idActivite", idActivite);
+		return !stmtExiste.getResultList().isEmpty();
+	}
 
 	/**
 	 * Recupere Activite correspondant au nomActivite.
@@ -70,6 +81,20 @@ public class TableActivite {
 		List<Activite> activites = stmtExiste.getResultList();
 		if (!activites.isEmpty()) {
 			return activites.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Recupere occupation correspondant au idLieu.
+	 * 
+	 */
+	public List<Activite> getActivitesLieu(int idLieu) {
+		stmtListToutesActivitesLieu.setParameter("idLieu", idLieu);
+		List<Activite> activites = stmtListToutesActivitesLieu.getResultList();
+		if (!activites.isEmpty()) {
+			return activites;
 		} else {
 			return null;
 		}
