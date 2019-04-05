@@ -136,4 +136,21 @@ public class GestionnaireOffreVoyage {
 			throw e;
 		}
 	}
+	
+	/**
+	 * retourner la dernière offre de stage
+	 */
+	public OffreVoyage getLastOffreVoyage() {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			cx.commit();
+			return offreVoyages.getLastOffresVoyages();
+			
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+		
+	}
 }

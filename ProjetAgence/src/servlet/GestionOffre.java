@@ -41,16 +41,12 @@ import model.OffreVoyage;
 
 			try {
 				if(session.getAttribute("user") == null) {
-					System.out.println("Connexion refusée ! La connexion est reservé aux employés.");
-					
+					 request.setAttribute("erreur", "Connexion refusée ! La connexion est reservé aux employés.");
+					 
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
 					dispatcher.forward(request, response);
 				}
 				
-				if(request.getParameter("offreVoyage") == null)
-					throw new Exception("Vous devez choisir une offre à reserver");
-				
-				int idOffreVoyage = Integer.valueOf(request.getParameter("offreVoyage"));
 				// Si c'est la première fois qu'on essaie de se logguer, ou
 			       // d'inscrire quelqu'un
 			       if (!AgenceHelper.gestionnairesCrees(session))
@@ -61,9 +57,12 @@ import model.OffreVoyage;
 				// on vérifie que l'offre voyage exite
 				List<Lieu> listeLieux = (List<Lieu>) AgenceHelper.getAgenceInterrogation(session).getGestionLieu().affichageLieus();
 				
+				List<Categorie> listeCategorie =  AgenceHelper.getAgenceInterrogation(session).getGestionCategorie().affichageCategories();
+				
+				request.setAttribute("listeCategorie", listeCategorie);
 				request.setAttribute("listeLieux", listeLieux);
 				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestionOffre.jsp");
 				dispatcher.forward(request, response);
 			
 			} catch(Exception e) {
@@ -88,74 +87,69 @@ import model.OffreVoyage;
 			HttpSession session = request.getSession();
 
 			try {
+				if(session.getAttribute("user") == null) {
+					 request.setAttribute("erreur", "Connexion refusée ! La connexion est reservé aux employés.");
+					 
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+					dispatcher.forward(request, response);
+				}
 				// Si c'est la première fois qu'on essaie de se logguer, ou
 			       // d'inscrire quelqu'un
 		       if (!AgenceHelper.gestionnairesCrees(session))
 		       {
 		           AgenceHelper.creerGestionnaire(getServletContext(), session);
 		       }
+
+		       int lieu = Integer.valueOf(request.getParameter("lieu"));
+		       String description = request.getParameter("description");
+		       String dateDebut = request.getParameter("dateDebut");
+		       String dateFin = request.getParameter("dateFin");
+		       String nbPlace = request.getParameter("nbPlace");
 		       
-		       int idOffreVoyage = Integer.valueOf(request.getParameter("idOffreVoyage"));
-		       String nom = request.getParameter("nom");
-		       String prenom = request.getParameter("prenom");
-		       String email = request.getParameter("email");
-		       String tel = request.getParameter("tel");
-		       
-		       OffreVoyage offreVoyage = (OffreVoyage) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().affichageOffreVoyage(idOffreVoyage);
-		       
-		       if(offreVoyage != null)
-					System.out.println(offreVoyage.toString());
-				else
-					throw new Exception("L'offre de voyage passée en paramètre n'existe pas.");
+		       List<Lieu> listeLieux = (List<Lieu>) AgenceHelper.getAgenceInterrogation(session).getGestionLieu().affichageLieus();
+		       List<Categorie> listeCategorie =  AgenceHelper.getAgenceInterrogation(session).getGestionCategorie().affichageCategories();
 				
-		       List<Tarif> listeTarifs =  offreVoyage.getListeTarifs();
-				
-				request.setAttribute("offreVoyage", offreVoyage);
-				request.setAttribute("listeTarifs", listeTarifs);
-				request.setAttribute("nom", nom);
-				request.setAttribute("prenom", prenom);
-				request.setAttribute("email", email);
-				request.setAttribute("tel", tel);
+				request.setAttribute("listeCategorie", listeCategorie);
+				request.setAttribute("listeLieux", listeLieux);
+		       
+				request.setAttribute("lieu", lieu);
+				request.setAttribute("description", description);
+				request.setAttribute("dateDebut", dateDebut);
+				request.setAttribute("dateFin", dateFin);
+				request.setAttribute("nbPlace", nbPlace);
 	       
 				// on fait les tests
-				 if(nom == null || nom.isEmpty())
-	                 throw new Exception("Le nom est null");
-	             if(prenom == null || prenom.isEmpty())
+				Lieu lieuObj = (Lieu) AgenceHelper.getAgenceInterrogation(session).getGestionLieu().affichageLieu(lieu);
+				
+				 if(lieuObj == null)
+	                 throw new Exception("Le Lieu n'exisste pas");
+	             if(description == null || description.isEmpty())
 	                 throw new Exception("Le prenom est null");
-	             if(email == null || email.isEmpty())
+	             if(dateDebut == null || dateDebut.isEmpty())
 	                 throw new Exception("Le mail est null");
-	             if(tel == null || tel.isEmpty())
+	             if(dateFin == null || dateFin.isEmpty())
 	                 throw new Exception("Le téléphone est null");
 	            // implémenter test téléphone ultérieurement 
 				
 				// on ajoute la réservation
-	             AgenceHelper.getAgenceInterrogation(session).getGestionReservation().ajouter(nom, prenom, email, tel, offreVoyage);
-	             System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
-	             model.Reservation reservation = AgenceHelper.getAgenceInterrogation(session).getGestionReservation().getLastReservation();
-	             System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA" + reservation.getIdReservation());
-	             for(Tarif tarif: listeTarifs) {
-	            	 
-	            	 String nbParticipants = request.getParameter(tarif.getCategorie().getNomCategorie());
-	            	 System.out.println(nbParticipants);
-	            	 System.out.println(tarif.getCategorie().getNomCategorie());
-	            	 
-	            	 AgenceHelper.getAgenceInterrogation(session).getGestionParticipant().ajouter(Integer.valueOf(nbParticipants), tarif.getCategorie(), reservation);
-	             }
-	             /*
-	             List<Tarif>  listeTarifs = (List<Tarif>) request.getAttribute("listeTarifs");
-		            for(Tarif tarif: listeTarifs) {
-		          %>
-		          <div class="form-group row">
-				    <label for="inputEmail3" class="col-sm-2 col-form-label">nombre de <%= tarif.getCategorie().getNomCategorie() %>(s)</label>
-				    <div class="col-sm-10">
-				      <input type="number" class="form-control" min="0" name="<%= tarif.getCategorie() %>" id="inputEmail3" placeholder="2" <% if(request.getAttribute(tarif.getCategorie().getNomCategorie()) != null) { out.println("value='"+request.getAttribute(tarif.getCategorie().getNomCategorie())+"'"); }%>>
-				    </div>
-				  </div>
-				  <%
-		            }
+	             AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().ajouter(description, lieuObj, dateDebut, dateFin);
+	             OffreVoyage offreVoayge = AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().getLastOffreVoyage();
 	             
-	             */
-	             request.setAttribute("messageSuccess", "La réservation a bien été enregistré.");
+	             for(Categorie categorie: listeCategorie) {
+	            	 
+	            	 String prix = request.getParameter(categorie.getNomCategorie());
+	            	 System.out.println(prix);
+	            	 System.out.println(categorie.getNomCategorie());
+	            	 
+	            	 AgenceHelper.getAgenceInterrogation(session).getGestionTarif().ajouter(Integer.valueOf(prix), offreVoayge, categorie);
+	             }
+
+	             request.setAttribute("messageSuccess", "L'offre a bien été enregistré.");
+	             request.setAttribute("lieu", null);
+				request.setAttribute("description", null);
+				request.setAttribute("dateDebut", null);
+				request.setAttribute("dateFin", null);
+				request.setAttribute("nbPlace", null);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gestionOffre.jsp");
 				dispatcher.forward(request, response);
 

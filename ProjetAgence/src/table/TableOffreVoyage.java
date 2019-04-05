@@ -12,6 +12,7 @@ public class TableOffreVoyage {
 	private TypedQuery<OffreVoyage> stmtExisteByContent;
 	private TypedQuery<OffreVoyage> stmtListToutesOffreVoyages;
 	private TypedQuery<OffreVoyage> stmtListToutesOffreVoyagesLieu;
+	private TypedQuery<OffreVoyage> stmtLastOffreVoyage;
 	
 	private Connexion cx;
 
@@ -29,6 +30,7 @@ public class TableOffreVoyage {
 		stmtListToutesOffreVoyages = cx.getConnection().createQuery("select o from OffreVoyage o", OffreVoyage.class);
 		stmtListToutesOffreVoyagesLieu = cx.getConnection()
 				.createQuery("select o from OffreVoyage o where o.lieu.idLieu = :idLieu", OffreVoyage.class);
+		stmtLastOffreVoyage = cx.getConnection().createQuery("select r from OffreVoyage r where r.idOffreVoyage = (SELECT MAX(r.idOffreVoyage) from OffreVoyage)", OffreVoyage.class);
 		
 	}
 
@@ -115,5 +117,19 @@ public class TableOffreVoyage {
     {
     	System.out.println("tableOfreVoyage getListeOffresVoyage");
         return stmtListToutesOffreVoyages.getResultList();
+    }
+    
+    /**
+     * Retourne la dernière offre de voyage de la BDD
+     * @return
+     */
+    public OffreVoyage getLastOffresVoyages()
+    {
+		List<OffreVoyage> offresVoyages = stmtLastOffreVoyage.getResultList();
+		if (!offresVoyages.isEmpty()) {
+			return offresVoyages.get(0);
+		} else {
+			return null;
+		}
     }
 }

@@ -142,21 +142,12 @@ public class Reservation extends HttpServlet {
             	 
             	 AgenceHelper.getAgenceInterrogation(session).getGestionParticipant().ajouter(Integer.valueOf(nbParticipants), tarif.getCategorie(), reservation);
              }
-             /*
-             List<Tarif>  listeTarifs = (List<Tarif>) request.getAttribute("listeTarifs");
-	            for(Tarif tarif: listeTarifs) {
-	          %>
-	          <div class="form-group row">
-			    <label for="inputEmail3" class="col-sm-2 col-form-label">nombre de <%= tarif.getCategorie().getNomCategorie() %>(s)</label>
-			    <div class="col-sm-10">
-			      <input type="number" class="form-control" min="0" name="<%= tarif.getCategorie() %>" id="inputEmail3" placeholder="2" <% if(request.getAttribute(tarif.getCategorie().getNomCategorie()) != null) { out.println("value='"+request.getAttribute(tarif.getCategorie().getNomCategorie())+"'"); }%>>
-			    </div>
-			  </div>
-			  <%
-	            }
-             
-             */
+
              request.setAttribute("messageSuccess", "La réservation a bien été enregistré.");
+             request.setAttribute("nom", null);
+			request.setAttribute("prenom", null);
+			request.setAttribute("email", null);
+			request.setAttribute("tel", null);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
 			dispatcher.forward(request, response);
 
