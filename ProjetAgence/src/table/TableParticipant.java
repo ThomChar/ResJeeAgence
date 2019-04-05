@@ -79,7 +79,7 @@ public class TableParticipant {
 	 * Recupere les participants d'une reservation correspondant au idReservation.
 	 * 
 	 */
-	public List<Participant> getOccupationsActivite(int idReservation) {
+	public List<Participant> getParticipantsReservation(int idReservation) {
 		stmtListTousParticipantsReservation.setParameter("idReservation", idReservation);
 		List<Participant> participants = stmtListTousParticipantsReservation.getResultList();
 		if (!participants.isEmpty()) {

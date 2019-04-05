@@ -1,6 +1,7 @@
 package gestionnaire;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,12 +35,11 @@ public class GestionnaireCategorie {
 	 * Creation d'une instance
 	 */
 	public GestionnaireCategorie(TableCategorie tableCategorie, TableTarif tableTarif, TableParticipant tableParticipant)throws AgencyException {
-		this.cx = categories.getConnexion();
-		
-		if (categories.getConnexion() == tarifs.getConnexion() && categories.getConnexion() == participants.getConnexion()) { 
-			this.categories = categories;
-			this.tarifs = tarifs;
-			this.participants = participants;
+		this.cx = tableCategorie.getConnexion();
+		if (tableCategorie.getConnexion() == tableTarif.getConnexion() && tableCategorie.getConnexion() == tableParticipant.getConnexion()) { 
+			this.categories = tableCategorie;
+			this.tarifs = tableTarif;
+			this.participants = tableParticipant;
 		} else {
 			throw new AgencyException(
 					"Les instances de categories, de tarifs et de participants n'utilisent pas la même connexion au serveur");
@@ -59,13 +59,12 @@ public class GestionnaireCategorie {
 
 			/*if (offreVoyages.existeByContent(description, lieu))
 				throw new AgencyException("Cette offre de Voyage existe deja ");*/
-			
 			//Categorie tupleCategorie = categories.getCategorie(nomCategorie);
 			if (categories.existeByContent(nomCategorie))
 				throw new AgencyException("Cette categorie existe deja ");
-			
+			System.out.println("trtolrotorort");
 			Categorie tupleCategorie = new Categorie(nomCategorie);
-			
+			System.out.println("trtolrotorort2");
 			// Ajout de la categorie dans la table
 			categories.creer(tupleCategorie);
 
@@ -115,12 +114,32 @@ public class GestionnaireCategorie {
 			cx.demarreTransaction();
 			Categorie tupleCategorie = categories.getCategorieById(idCategorie);
 			if (tupleCategorie == null)
-				throw new AgencyException("Offre Voyage inexistante: " + tupleCategorie);
+				throw new AgencyException("Categorie inexistante: " + tupleCategorie);
 			System.out.println(tupleCategorie.toString());
 			
 			// Commit
 			cx.commit();
 			return tupleCategorie;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Affichage la liste des Categories
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<Categorie> affichageCategories() throws AgencyException, Exception {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			List<Categorie> listeCategories = categories.getListeCategories();
+			
+			// Commit
+			cx.commit();
+			return listeCategories;
 		} catch (Exception e) {
 			cx.rollback();
 			throw e;

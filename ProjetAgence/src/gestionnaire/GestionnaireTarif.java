@@ -31,13 +31,13 @@ public class GestionnaireTarif {
 	 */
 	public GestionnaireTarif(TableTarif tableTarif, TableCategorie tableCategorie, TableOffreVoyage tableOffreVoyage)
 			throws AgencyException {
-		this.cx = tarifs.getConnexion();
+		this.cx = tableTarif.getConnexion();
 
-		if (tarifs.getConnexion() == offreVoyages.getConnexion()
-				&& tarifs.getConnexion() == categories.getConnexion()) {
-			this.tarifs = tarifs;
-			this.categories = categories;
-			this.offreVoyages = offreVoyages;
+		if (tableTarif.getConnexion() == tableOffreVoyage.getConnexion()
+				&& tableTarif.getConnexion() == tableCategorie.getConnexion()) {
+			this.tarifs = tableTarif;
+			this.categories = tableCategorie;
+			this.offreVoyages = tableOffreVoyage;
 		} else {
 			throw new AgencyException(
 					"Les instances de lieu, de tarif et d'offre de voyage n'utilisent pas la même connexion au serveur");

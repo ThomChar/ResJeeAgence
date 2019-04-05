@@ -24,8 +24,10 @@ import org.hibernate.StatelessSession;
 import connexionBD.Connexion;
 import connexionBD.HibernateUtil;
 import model.Activite;
+import model.Categorie;
 import model.Lieu;
 import model.OffreVoyage;
+import model.Tarif;
 
 /**
  * Servlet implementation class Accueil
@@ -85,6 +87,14 @@ public class Accueil extends HttpServlet {
             System.out.println(test.toString());
             Lieu tedgdtdgf = test.getLieu();
             System.out.println(tedgdtdgf.toString());
+            //AgenceHelper.getAgenceInterrogation(session).getGestionCategorie().ajouter("c1");
+            System.out.println("ajout Categorie BD");
+            Categorie c1 = AgenceHelper.getAgenceInterrogation(session).getGestionCategorie().affichageCategorie(4);
+            System.out.println("ajout Categorie done");
+            //AgenceHelper.getAgenceInterrogation(session).getGestionTarif().ajouter(20.1f, test, c1);
+            System.out.println("ajout Tarif BD");
+            Tarif t1 =  AgenceHelper.getAgenceInterrogation(session).getGestionTarif().affichageTarif(2, 4);
+            System.out.println("ajout Tarif done");
             
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().supprime("salut3");
             //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().getActivite("salut");
@@ -129,12 +139,12 @@ public class Accueil extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		/*RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
 		dispatcher.forward(request, response);
 		//cx.getConnection().createQuery("select a from Activite a");
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("UniversityApplicationPU");
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("agencedb");
-		PrintWriter out = response.getWriter();
+		/*PrintWriter out = response.getWriter();
 	    //EntityManager em = emf.createEntityManager();
 	    cx.getConnection().getTransaction().begin();
 	    //create an activite

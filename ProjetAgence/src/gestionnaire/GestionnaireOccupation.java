@@ -1,5 +1,7 @@
 package gestionnaire;
 
+import java.util.List;
+
 import connexionBD.*;
 import model.*;
 import table.*;
@@ -102,6 +104,26 @@ public class GestionnaireOccupation {
 			// Commit
 			cx.commit();
 			return tupleOccupation;
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Affichage de la liste des occupations
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<Occupation> affichageOccupations() throws AgencyException, Exception {
+		
+		// Validation
+		try {
+			cx.demarreTransaction();
+			List<Occupation> listeOccupations = occupations.getListeOccupations();			
+			// Commit
+			cx.commit();
+			return listeOccupations;
 		} catch (Exception e) {
 			cx.rollback();
 			throw e;

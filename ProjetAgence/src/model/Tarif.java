@@ -28,6 +28,11 @@ public class Tarif {
 		this.categorie = categorie;
 	}
 	
+	public Tarif() {
+		super();
+		
+	}
+	
 	public int getIdTarif() {
 		return idTarif;
 	}
@@ -59,7 +64,6 @@ public class Tarif {
 
 	@Override
 	public String toString() {
-		return "Tarif [idTarif=" + idTarif + ", prixUnitaire=" + prixUnitaire + ", offreVoyage=" + offreVoyage
-				+ ", categorie=" + categorie + "]";
+		return "Tarif [idTarif=" + idTarif + ", prixUnitaire=" + prixUnitaire +"]";
 	}
 }

@@ -34,6 +34,9 @@ public class Categorie {
 		this.listeTarifs = new LinkedList<Tarif>();
 	}
 	
+	public Categorie() {
+		super();
+	}
 	public int getIdCategorie() {
 		return idCategorie;
 	}

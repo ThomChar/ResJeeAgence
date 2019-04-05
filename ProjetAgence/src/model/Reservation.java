@@ -40,6 +40,9 @@ public class Reservation {
 		this.listeParticipants = new LinkedList<Participant>();
 	}
 	
+	public Reservation() {
+		super();
+	}
 
 	public int getIdReservation() {
 		return idReservation;
