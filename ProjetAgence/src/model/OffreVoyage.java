@@ -22,6 +22,7 @@ public class OffreVoyage {
 	private String description;
 	private String dateDebut;
 	private String dateFin;
+	private int nbPlacesRestantes;
 	
 	@OneToMany( mappedBy = "offreVoyage", cascade =  CascadeType.ALL )
 	  private List< Tarif > listeTarifs;
@@ -32,7 +33,7 @@ public class OffreVoyage {
 	@ManyToOne(fetch = FetchType.LAZY) // cascade = CascadeType.PERSIST 
 	private Lieu lieu;
 	
-	public OffreVoyage(String description, Lieu lieu, String dateDebut, String dateFin) {
+	public OffreVoyage(String description, Lieu lieu, String dateDebut, String dateFin, int nbPlacesRestantes) {
 		super();
 		this.description = description;
 		this.listeTarifs = new LinkedList<Tarif>();
@@ -40,6 +41,7 @@ public class OffreVoyage {
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.lieu = lieu;
+		this.nbPlacesRestantes=nbPlacesRestantes;
 	}
 	
 	public OffreVoyage() {
@@ -134,8 +136,16 @@ public class OffreVoyage {
 	
 	@Override
 	public String toString() {
-		return "OffreVoyage [idOffreVoyage=" + idOffreVoyage + ", description=" + description + ", dateDebut="
+		return "OffreVoyage [idOffreVoyage=" + idOffreVoyage + ", description=" + description + ", nbPlacesRestantes=" + nbPlacesRestantes+ ", dateDebut="
 				+ dateDebut + ", dateFin=" + dateFin +", listeTarifs=" + listeTarifs + ", listeReservations="
 						+ listeReservations + "]";
+	}
+
+	public int getNbPlacesRestantes() {
+		return nbPlacesRestantes;
+	}
+
+	public void setNbPlacesRestantes(int nbPlacesRestantes) {
+		this.nbPlacesRestantes = nbPlacesRestantes;
 	}
 }

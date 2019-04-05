@@ -46,7 +46,7 @@ public class GestionnaireAgence
         
         gestionActivite = new GestionnaireActivite(tableActivite, tableLieu);
         System.out.println("test1");
-        gestionOffreVoyage = new GestionnaireOffreVoyage(tableOffreVoyage, tableLieu, tableTarif);
+        gestionOffreVoyage = new GestionnaireOffreVoyage(tableOffreVoyage, tableLieu, tableTarif,tableReservation);
         System.out.println("test1");
         gestionEmploye = new GestionnaireEmploye(tableEmploye);
         gestionLieu = new GestionnaireLieu(tableLieu, tableAVisite, tableOffreVoyage);

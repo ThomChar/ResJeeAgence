@@ -12,18 +12,20 @@ public class GestionnaireOffreVoyage {
 	private TableOffreVoyage offreVoyages;
 	private TableLieu lieus;
 	private TableTarif tarifs;
+	private TableReservation reservations;
 	private Connexion cx;
 	
 	/**
 	 * Creation d'une instance
 	 */
-	public GestionnaireOffreVoyage(TableOffreVoyage offreVoyages, TableLieu lieus, TableTarif tarifs)throws AgencyException {
+	public GestionnaireOffreVoyage(TableOffreVoyage offreVoyages, TableLieu lieus, TableTarif tarifs,TableReservation reservations)throws AgencyException {
 		this.cx = offreVoyages.getConnexion();
 		
-		if (lieus.getConnexion() == offreVoyages.getConnexion() && lieus.getConnexion() == tarifs.getConnexion()) { 
+		if (lieus.getConnexion() == offreVoyages.getConnexion() && lieus.getConnexion() == tarifs.getConnexion() && lieus.getConnexion() == reservations.getConnexion()) { 
 			this.offreVoyages = offreVoyages;
 			this.lieus = lieus;
 			this.tarifs = tarifs;
+			this.reservations = reservations;
 		} else {
 			throw new AgencyException(
 					"Les instances de lieu, de tarif et d'offre de voyage n'utilisent pas la même connexion au serveur");
@@ -36,7 +38,7 @@ public class GestionnaireOffreVoyage {
 	 * 
 	 * @throws AgencyException, Exception
 	 */
-	public void ajouter(String description, Lieu lieu, String dateDebut, String dateFin) throws AgencyException, Exception {
+	public void ajouter(String description, Lieu lieu, String dateDebut, String dateFin, int nbPlacesRestantes) throws AgencyException, Exception {
 		try {
 			cx.demarreTransaction();
 			// Vérifie si l'offre de voyage existe déjà
@@ -48,7 +50,7 @@ public class GestionnaireOffreVoyage {
 			if (tupleLieu == null)
 				throw new AgencyException("Ce lieu n'existe pas ");
 			
-			OffreVoyage tupleOffreVoyage = new OffreVoyage(description, lieu, dateDebut, dateFin);
+			OffreVoyage tupleOffreVoyage = new OffreVoyage(description, lieu, dateDebut, dateFin, nbPlacesRestantes);
 			tupleLieu.ajouterOffreVoyage(tupleOffreVoyage);
 			// Ajout de l'offre de voyage dans la table
 			offreVoyages.creer(tupleOffreVoyage);
@@ -135,5 +137,49 @@ public class GestionnaireOffreVoyage {
 			cx.rollback();
 			throw e;
 		}
+	}
+	
+	/**
+	 * Affichage d'une liste de reservation d'une offre de Voyage
+	 * 
+	 * @throws AgencyException,Exception
+	 */
+	public List<Reservation> getReservationsOffresVoyage(int idOffre) throws AgencyException, Exception {
+		// Validation
+				try {
+					cx.demarreTransaction();
+					List<Reservation>  listeOffreVoyages = reservations.getReservationsOffre(idOffre);
+					cx.commit();
+					return listeOffreVoyages;
+				} catch (Exception e) {
+					cx.rollback();
+					throw e;
+				}
+	}
+	
+	/**
+	 * Affichage du nombre de place restante pour un projete offre de voyage
+	 * @throws AgencyException,Exception
+	 */
+	public int getNbPlaceRestante(int idOffre) throws AgencyException, Exception {
+		// Validation
+				try {
+					cx.demarreTransaction();
+					OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffre);
+					int nbPlacesRestantes = tupleOffreVoyage.getNbPlacesRestantes();
+					int compteur =0;
+					List<Reservation>  listeOffreVoyages = reservations.getReservationsOffre(idOffre);
+					for(Reservation res : listeOffreVoyages) {
+						for(Participant p : res.getListeParticipants()) {
+							compteur = compteur + p.getNombreParticipants();
+						}
+					}
+					nbPlacesRestantes=nbPlacesRestantes-compteur;
+					cx.commit();
+					return nbPlacesRestantes;
+				} catch (Exception e) {
+					cx.rollback();
+					throw e;
+				}
 	}
 }

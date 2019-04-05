@@ -13,67 +13,70 @@ import javax.servlet.http.HttpSession;
 
 import model.Categorie;
 import model.OffreVoyage;
+import model.Participant;
 import model.Tarif;
 
 /**
  * Servlet implementation class Accueil
  */
-//@WebServlet("/Login")
+// @WebServlet("/Login")
 public class Reservation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Reservation() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Reservation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		HttpSession session = request.getSession();
 
 		try {
 			int idOffreVoyage = Integer.valueOf(request.getParameter("offreVoyage"));
 			// Si c'est la première fois qu'on essaie de se logguer, ou
-		       // d'inscrire quelqu'un
-	       if (!AgenceHelper.gestionnairesCrees(session))
-	       {
-	           AgenceHelper.creerGestionnaire(getServletContext(), session);
-	       }
-	       
+			// d'inscrire quelqu'un
+			if (!AgenceHelper.gestionnairesCrees(session)) {
+				AgenceHelper.creerGestionnaire(getServletContext(), session);
+			}
+
 			// on vérifie que l'offre voyage exite
-			OffreVoyage offreVoyage = (OffreVoyage) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().affichageOffreVoyage(idOffreVoyage);
-			
-			if(offreVoyage != null)
+			OffreVoyage offreVoyage = (OffreVoyage) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage()
+					.affichageOffreVoyage(idOffreVoyage);
+
+			if (offreVoyage != null)
 				System.out.println(offreVoyage.toString());
 			else
 				throw new Exception("L'offre de voyage passée en paramètre n'existe pas.");
-			
+
 			// on récupère toutes les catégories
-			List<Tarif> listeTarifs =  offreVoyage.getListeTarifs();
-			
+			List<Tarif> listeTarifs = offreVoyage.getListeTarifs();
+
 			request.setAttribute("offreVoyage", offreVoyage);
 			request.setAttribute("listeTarifs", listeTarifs);
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
 			dispatcher.forward(request, response);
-		
-		} catch(Exception e) {
-			
+
+		} catch (Exception e) {
+
 			request.setAttribute("erreur", e.getMessage());
 			System.out.println(e.getMessage());
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
 			dispatcher.forward(request, response);
 		}
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -123,6 +126,16 @@ public class Reservation extends HttpServlet {
              if(email == null || email.isEmpty())
                  throw new Exception("Le mail est null");
              if(tel == null || tel.isEmpty())
+                 throw new Exception("Le téléphone est null");
+             List<model.Reservation> listReservations =  AgenceHelper.getAgenceInterrogation(session).getGestionReservation().affichageReservationsOffre(idOffreVoyage);
+             int comtpteurParticipants=0;
+             for(Tarif tarif: listeTarifs) {
+            	 
+            	 String nbParticipants = request.getParameter(tarif.getCategorie().getNomCategorie());
+            	 comtpteurParticipants=comtpteurParticipants+ Integer.valueOf(nbParticipants);
+             }
+            
+             if(AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().getNbPlaceRestante(idOffreVoyage)-comtpteurParticipants>=0)
                  throw new Exception("Le téléphone est null");
             // implémenter test téléphone ultérieurement 
 			
