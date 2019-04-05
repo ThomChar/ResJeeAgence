@@ -24,7 +24,7 @@
             %>
             	<!-- Offre de Voyage -->
             	<div class="formTitle col-sm-12 col-md-12 col-lg-12 OffreVoyage">
-                     <h2><%= offreVoyage.getLieu().getNomLieu() %>,<span class="datesVoyage"> du <%= "06/06/2019" %> au <%= "08/06/2019" %></span></h2>
+                     <h2><%= offreVoyage.getLieu().getNomLieu() %>,<span class="datesVoyage"> du <%= offreVoyage.getDateDebut() %> au <%= offreVoyage.getDateFin() %></span></h2>
                      <div class="infos">
                      
 	                     <span><%= offreVoyage.getDescription() %></span><br/>
@@ -34,10 +34,18 @@
 		                     	<h3>À faire :</h3>
 		                     	<ul>
 			                     	<%
-			                     	for(Tarif tarif: offreVoyage.getListeTarifs()) {
-			                     	%>
-			                     		<li><%= tarif.getCategorie().getNomCategorie() %> : <%= tarif.getPrixUnitaire() %>€</li>
-			                     	<%
+			                     	if(offreVoyage.getLieu().getListeAVisite().size() > 0)
+			                     	{
+
+				                     	for(AVisite aVisite: offreVoyage.getLieu().getListeAVisite()) {
+				                     	%>
+				                     		<li><%= aVisite.getLibelle() %></li>
+				                     	<%
+				                     	}
+			                     	}
+			                     	else
+			                     	{
+			                     		%> <span>à venir...</span> <%
 			                     	}
 			                     	%>
 			                     </ul>
@@ -47,10 +55,17 @@
 		                     	<h3>Activités :</h3>
 		                     	<ul>
 			                     	<%
-			                     	for(Tarif tarif: offreVoyage.getListeTarifs()) {
-			                     	%>
-			                     		<li><%= tarif.getCategorie().getNomCategorie() %> : <%= tarif.getPrixUnitaire() %>€</li>
-			                     	<%
+			                     	if(offreVoyage.getLieu().getListeOccupations().size() > 0)
+			                     	{
+			                     		for(Occupation occupation: offreVoyage.getLieu().getListeOccupations()) {
+				                     	%>
+				                     		<li><%= occupation.getActivite().getNomActivite() %></li>
+				                     	<%
+				                     	}
+			                     	}
+			                     	else
+			                     	{
+			                     		%> <span>à venir...</span> <%
 			                     	}
 			                     	%>
 			                     </ul>
@@ -59,11 +74,19 @@
 	                     
 	                     <span>Les tarifs :</span>
 	                     <ul>
+	                     
 	                     	<%
-	                     	for(Tarif tarif: offreVoyage.getListeTarifs()) {
-	                     	%>
-	                     		<li><%= tarif.getCategorie().getNomCategorie() %> : <%= tarif.getPrixUnitaire() %>€</li>
-	                     	<%
+	                     	if(offreVoyage.getListeTarifs().size() > 0)
+	                     	{
+		                     	for(Tarif tarif: offreVoyage.getListeTarifs()) {
+		                     	%>
+		                     		<li><%= tarif.getCategorie().getNomCategorie() %> : <%= tarif.getPrixUnitaire() %>€</li>
+		                     	<%
+		                     	}
+	                     	}
+	                     	else
+	                     	{
+	                     		%> <span>à venir...</span> <%
 	                     	}
 	                     	%>
 	                     </ul>

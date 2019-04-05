@@ -27,6 +27,10 @@ public class AVisite {
 		this.lieu = lieu;
 	}
 	
+	public AVisite() {
+		super();
+	}
+	
 	public int getIdAVisite() {
 		return idAVisite;
 	}

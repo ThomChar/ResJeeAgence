@@ -13,14 +13,11 @@
        <section class="container">
 
 
-           <div class="row">
-            <div class="col-sm-12 col-md-7">
-            <h1>Bienvenu sur notre site !</h1>
-            <p class="text-justify">Prêt pour un nouveau voyage ?</p>
-          </div>
-          <div class="col-sm-12 col-md-5">
-            <!--  <img src="<%=request.getContextPath()%>/images/404.jpg" class="img-fluid" alt="Responsive image">-->
-          </div>
+         <div class="row">
+          <div class="col-sm-12 col-md-7">
+          <h1>Bienvenu sur notre site !</h1>
+          <p class="text-justify">Prêt pour un nouveau voyage ?</p>
+        </div>
         </div>
       </section>
 

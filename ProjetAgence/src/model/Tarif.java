@@ -21,6 +21,10 @@ public class Tarif {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Categorie categorie ;
 	
+	public Tarif() {
+		super();
+	}
+	
 	public Tarif(float prixUnitaire, OffreVoyage offreVoyage, Categorie categorie) {
 		super();
 		this.prixUnitaire = prixUnitaire;

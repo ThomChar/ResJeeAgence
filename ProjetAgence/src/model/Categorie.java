@@ -37,6 +37,7 @@ public class Categorie {
 	public Categorie() {
 		super();
 	}
+	
 	public int getIdCategorie() {
 		return idCategorie;
 	}
