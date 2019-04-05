@@ -1,0 +1,41 @@
+.OffreVoyage {
+	margin-top: 0.5em;
+
+}
+
+.OffreVoyage h2{
+    background: #78c4ed;
+    color: white;
+    padding: 0.2em;
+    margin-bottom: 0em;
+}
+
+.OffreVoyage .infos {
+	background: #F9EFCA;
+	margin-right: 0.5em;
+	margin-left: 0.5em;
+	padding: 0.5em 1em 0.1em 1em;
+	
+}
+.datesVoyage {
+	font-size: 0.6em
+}
+
+.itemsOffre {
+	margin-top: 0.5em;
+}
+.itemsOffre h3 {
+	font-size: 1.5em;
+	margin-bottom: 0em;
+}
+
+
+.buttonitemsOffre {
+	background: #4db8f2 !important;
+    border-color: #52b1e4 !important;
+}
+
+.buttonitemsOffre:hover {
+	background: #1854e1 !important;
+    border-color: #1854e1 !important;
+}

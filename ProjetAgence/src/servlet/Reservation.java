@@ -39,6 +39,9 @@ public class Reservation extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		try {
+			if(request.getParameter("offreVoyage") == null)
+				throw new Exception("Vous devez choisir une offre à reserver");
+			
 			int idOffreVoyage = Integer.valueOf(request.getParameter("offreVoyage"));
 			// Si c'est la première fois qu'on essaie de se logguer, ou
 		       // d'inscrire quelqu'un

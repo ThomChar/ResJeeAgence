@@ -62,26 +62,18 @@ public class Login extends HttpServlet {
                     throw new Exception("Le pseudo ou le mot de passe est null");
             }
             Employe connectedEmploye = AgenceHelper.getAgenceInterrogation(session).getGestionEmploye().getEmployeByPseudo(pseudo);
+
             if(connectedEmploye == null) {
             		throw new Exception("Le pseudo n'est pas correct veuillir le ressaisir");
             }else if(!connectedEmploye.getPassword().equals(password)) {
             	    throw new Exception("Le mot de passe n'est pas correct veuillir le ressaisir");
             }
-            //boolean valide = AgenceHelper.getAgenceInterrogation(session).getGestionEmploye().
-            if(/*uamanager.validateLogin(email, password)*/ password.equals("password"))
-            {
-                    // la connexion est établie
-            		
-                    session.setAttribute("user", pseudo);
-                    
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
-            		dispatcher.forward(request, response);
-            }
-            else
-            {
-                    // connexion refusée
-                    throw new Exception("Le pseudo ou le mot de passe n'est pas correcte !");
-            }
+            
+            session.setAttribute("user", pseudo);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
+    		dispatcher.forward(request, response);
+    		
 
         } catch(Exception e) {
 

@@ -39,7 +39,7 @@
 
 				                     	for(AVisite aVisite: offreVoyage.getLieu().getListeAVisite()) {
 				                     	%>
-				                     		<li><%= aVisite.getLibelle() %></li>
+				                     		<li><%= aVisite.getLibelle() %> : <%= aVisite.getDescription() %></li>
 				                     	<%
 				                     	}
 			                     	}
@@ -59,7 +59,7 @@
 			                     	{
 			                     		for(Activite activite: offreVoyage.getLieu().getListeActivites()) {
 				                     	%>
-				                    		<li><%= activite.getNomActivite() %></li>
+				                    		<li><%= activite.getNomActivite() %> : <%= activite.getDescription() %></li>
 				                     	<%
 				                     	}
 			                     	}
