@@ -75,7 +75,7 @@ public class Participant {
 	@Override
 	public String toString() {
 		return "Participant [idParticipant=" + idParticipant + ", nombreParticipants=" + nombreParticipants
-				+ ", categorie=" + categorie + ", reservation=" + reservation + "]";
+				+ ", categorie=" + categorie + "]";
 	}
 
 }

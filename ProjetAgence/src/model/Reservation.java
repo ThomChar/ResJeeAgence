@@ -147,8 +147,7 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [idReservation=" + idReservation + ", nom=" + nom + ", prenom=" + prenom + ", email="
-				+ email + ", tel=" + tel + ", listeParticipants=" + listeParticipants + ", offreVoyage=" + offreVoyage
-				+ "]";
+				+ email + ", tel=" + tel + "]";
 	}
 
 }

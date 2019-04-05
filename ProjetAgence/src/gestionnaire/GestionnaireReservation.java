@@ -50,10 +50,7 @@ public class GestionnaireReservation {
 		try {
 			cx.demarreTransaction();
 			// Vérifie si l occupation existe déjà
-
-			if (reservations.existeByContent(nom, offreVoyage))
-				throw new AgencyException("Cette occupations existe deja pour ce Lieu ");
-
+			
 			Reservation tupleReservation = new Reservation(nom, prenom, email, tel, offreVoyage);
 			
 			// Ajout de l activite dans la table des activites
@@ -107,7 +104,7 @@ public class GestionnaireReservation {
 			Reservation tupleReservation = reservations.getReservation(idReservation);
 			if (tupleReservation == null)
 				throw new AgencyException("reservation inexistante ");
-			System.out.println(tupleReservation.toString());
+			//System.out.println(tupleReservation.toString());
 			
 			// Commit
 			cx.commit();
@@ -154,5 +151,22 @@ public class GestionnaireReservation {
 			cx.rollback();
 			throw e;
 		}
+	}
+	
+	/**
+	 * retourner la dernière réservation
+	 */
+	public Reservation getLastReservation() {
+		// Validation
+		try {
+			cx.demarreTransaction();
+			cx.commit();
+			return reservations.getLastReservation();
+			
+		} catch (Exception e) {
+			cx.rollback();
+			throw e;
+		}
+		
 	}
 }

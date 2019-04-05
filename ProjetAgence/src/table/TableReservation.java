@@ -15,6 +15,7 @@ public class TableReservation {
 	private TypedQuery<Reservation> stmtExisteByContent;
 	private TypedQuery<Reservation> stmtListToutesReservations;
 	private TypedQuery<Reservation> stmtListReservationsOffre;
+	private TypedQuery<Reservation> stmtLastReservation;
 	
 	private Connexion cx;
 
@@ -32,6 +33,7 @@ public class TableReservation {
 				Reservation.class);
 		stmtListToutesReservations = cx.getConnection().createQuery("select r from Reservation r", Reservation.class);
 		stmtListReservationsOffre = cx.getConnection().createQuery("select r from Reservation r where r.offreVoyage.idOffreVoyage = : idOffreVoyage", Reservation.class);
+		stmtLastReservation = cx.getConnection().createQuery("select r from Reservation r where r.idReservation = (SELECT MAX(r.idReservation) from Reservation)", Reservation.class);
 		
 	}
 
@@ -116,5 +118,20 @@ public class TableReservation {
     public List<Reservation> getListeReservations()
     {
         return stmtListToutesReservations.getResultList();
-    }	
+    }
+    
+    /**
+     * Retourne la dernière reservation de la BDD
+     * @return
+     */
+    public Reservation getLastReservation()
+    {
+		List<Reservation> reservations = stmtLastReservation.getResultList();
+		if (!reservations.isEmpty()) {
+			return reservations.get(0);
+		} else {
+			return null;
+		}
+    }
+    
 }

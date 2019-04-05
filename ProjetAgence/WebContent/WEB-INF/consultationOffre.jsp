@@ -98,10 +98,9 @@
                 
             <%
             }
-            
+            if(offresVoyages.size() == 0)
+           		out.println("Aucune offre de voyage pour le moment.");
             %>
-            
-            
             
           </div>
 
