@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Categorie;
 import model.OffreVoyage;
 
 /**
@@ -46,12 +48,20 @@ public class Reservation extends HttpServlet {
 	       }
 	       
 			// on vérifie que l'offre voyage exite
+	       System.out.println("on vérifie que l'offre voyage exite");
 			OffreVoyage offreVoyage = (OffreVoyage) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().affichageOffreVoyage(idOffreVoyage);
-			
+			System.out.println("on vérifie que l'offre voyage exite AFTER");
 			if(offreVoyage != null)
 				System.out.println(offreVoyage.toString());
 			else
 				System.out.println("offreVoyage == null");
+			
+			// on récupère toutes les catégories
+			//ArrayList<Categorie> listeCategories = (ArrayList<Categorie>) AgenceHelper.getAgenceInterrogation(session).getGestionCategorie()
+			
+			request.setAttribute("offreVoyage", offreVoyage);
+			//request.setAttribute("listeCategories", listeCategories);
+			
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/reservation.jsp");
 			dispatcher.forward(request, response);

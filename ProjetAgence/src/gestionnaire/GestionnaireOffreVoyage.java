@@ -98,9 +98,9 @@ public class GestionnaireOffreVoyage {
 		try {
 			cx.demarreTransaction();
 			OffreVoyage tupleOffreVoyage = offreVoyages.getOffreVoyage(idOffreVoyage);
-			if (tupleOffreVoyage == null)
+			/*if (tupleOffreVoyage == null)
 				throw new AgencyException("Offre Voyage inexistante: " + idOffreVoyage);
-			System.out.println(tupleOffreVoyage.toString());
+			System.out.println(tupleOffreVoyage.toString());*/
 			
 			// Commit
 			cx.commit();
@@ -126,7 +126,7 @@ public class GestionnaireOffreVoyage {
 				throw new AgencyException("Offre Voyage inexistante: ");
 			
 			System.out.println("after getOffresVoyages");
-			System.out.println(OffresVoyages.toString());
+			//System.out.println(OffresVoyages.toString());
 			
 			// Commit
 			cx.commit();

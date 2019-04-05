@@ -44,16 +44,17 @@ public class ConsultationOffre extends HttpServlet {
 	       if (!AgenceHelper.gestionnairesCrees(session))
 	       {
 	           AgenceHelper.creerGestionnaire(getServletContext(), session);
-	           AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6");
+	           //AgenceHelper.getAgenceInterrogation(session).getGestionActivite().ajouter("salut6");
 	       }
 	       
 	       System.out.println("avant");
-	       //ArrayList<OffreVoyage> offresVoyages = (ArrayList<OffreVoyage>) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().getOffresVoyages();
+	       ArrayList<OffreVoyage> offresVoyages = (ArrayList<OffreVoyage>) AgenceHelper.getAgenceInterrogation(session).getGestionOffreVoyage().getOffresVoyages();
 	       System.out.println("après");
 	       
 			// on récupère toutes les offres de voyages
 				// dans l'attente de la BDD, on les génère.
-			ArrayList<OffreVoyage> listeOffresVoyages = new ArrayList<OffreVoyage>();
+			/*
+	       ArrayList<OffreVoyage> listeOffresVoyages = new ArrayList<OffreVoyage>();
 			ArrayList<Lieu> listeLieux = new ArrayList<Lieu>();
 			ArrayList<Categorie> listeCategorie = new ArrayList<Categorie>();
 			Lieu lieu1 = new Lieu("Polytech Tours", "France");
@@ -68,10 +69,10 @@ public class ConsultationOffre extends HttpServlet {
 			offreVoyage.getListeTarifs().add(t2);
 			
 			listeOffresVoyages.add(offreVoyage);
-
-			System.out.println("AAAAAAAAAA:"+listeOffresVoyages.size());
+*/
+			System.out.println("AAAAAAAAAA:"+offresVoyages.size());
 			
-			request.setAttribute("listeOffresVoyages", listeOffresVoyages);
+			request.setAttribute("listeOffresVoyages", offresVoyages);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/consultationOffre.jsp");
 			dispatcher.forward(request, response);

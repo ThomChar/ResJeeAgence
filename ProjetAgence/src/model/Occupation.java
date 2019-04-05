@@ -29,6 +29,10 @@ public class Occupation {
 		this.activite = activite;
 	}
 	
+	public Occupation() {
+		super();
+	}
+	
 	public int getIdOccupation() {
 		return idOccupation;
 	}
